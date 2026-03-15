@@ -20,7 +20,8 @@ export const HeroCards: React.FC<HeroCardsProps> = ({
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.1, delay: 0.7, ease: 'easeOut' }}
-      className="absolute top-[82vh] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-6xl px-6 sm:px-12 md:px-24 flex justify-center"
+      className="fixed left-1/2 -translate-x-1/2 z-[60] w-full max-w-6xl px-6 sm:px-12 md:px-24 flex justify-center"
+      style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + clamp(2rem, 6dvh, 3.75rem))' }}
     >
       <AnimatePresence mode="wait">
         {!isDestructiveUnlocked && (

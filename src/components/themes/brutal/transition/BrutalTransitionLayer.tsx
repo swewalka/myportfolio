@@ -21,7 +21,7 @@ export const BrutalTransitionLayer: React.FC = () => {
         initial={{ y: "100%" }}
         animate={{ y: "50%" }}
         transition={{ duration: 0.6, type: "spring", stiffness: 80 }}
-        className="absolute bottom-0 right-0 w-[50vw] h-[50vh] bg-black/5 border-l-4 border-t-4 border-black"
+        className="absolute bottom-[30vh] right-0 w-[50vw] h-[50vh] bg-black/5 border-l-4 border-t-4 border-black"
       />
       
       {/* Vignette/Grime equivalent for brutalism (just hard noise/grain) */}

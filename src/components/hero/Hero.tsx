@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useMotionValueEvent, useScroll, useTransform } from 'framer-motion';
 import CursorManager from '../cursor/CursorManager';
 import ThemeProvider from '../themes/ThemeManager';
 import { useTheme } from '../themes/themeContext';
@@ -13,6 +13,7 @@ function HeroContent() {
 
   const [isDestructiveUnlocked, setIsDestructiveUnlocked] = useState(false);
   const [isWiggling, setIsWiggling] = useState(false);
+  const [showHeroCards, setShowHeroCards] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -64,26 +65,33 @@ function HeroContent() {
   const defaultBgColor = useTransform(scrollYProgress, [0.8, 0.9], ['#000000', '#fcfcfc']);
   const bgColor = isStarterTheme ? defaultBgColor : 'transparent';
 
+  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
+    const shouldShowCards = latest < 0.004;
+    setShowHeroCards((previous) => (previous === shouldShowCards ? previous : shouldShowCards));
+  });
+
   return (
     <div ref={containerRef} className="h-[1000vh] w-full relative">
       <motion.div
         style={{ backgroundColor: bgColor }}
-        className="sticky top-[-10vh] h-[130vh] w-full overflow-hidden cursor-none"
+        className="sticky top-0 h-[130vh] w-full overflow-hidden cursor-none"
       >
         <ThemeTransitionLayer />
 
         <HeroRevealLayer scrollYProgress={scrollYProgress} isUnlocked={isDestructiveUnlocked}>
-          <HeroLandingLayer isUnlocked={isDestructiveUnlocked} isWiggling={isWiggling}>
-            <HeroCards
-              isDestructiveUnlocked={isDestructiveUnlocked}
-              onUnlockDestructiveMode={() => {
-                setIsDestructiveUnlocked(true);
-                setIsWiggling(true);
-                setTimeout(() => setIsWiggling(false), 520);
-              }}
-            />
-          </HeroLandingLayer>
+          <HeroLandingLayer isUnlocked={isDestructiveUnlocked} isWiggling={isWiggling} />
         </HeroRevealLayer>
+
+        {showHeroCards && (
+          <HeroCards
+            isDestructiveUnlocked={isDestructiveUnlocked}
+            onUnlockDestructiveMode={() => {
+              setIsDestructiveUnlocked(true);
+              setIsWiggling(true);
+              setTimeout(() => setIsWiggling(false), 520);
+            }}
+          />
+        )}
       </motion.div>
     </div>
   );

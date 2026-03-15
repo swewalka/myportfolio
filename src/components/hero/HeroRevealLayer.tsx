@@ -24,25 +24,25 @@ export const HeroRevealLayer: React.FC<HeroRevealLayerProps> = ({
 
   const gatedProgress = useTransform(scrollYProgress, (value) => (isUnlocked ? value : 0));
 
-  const meltScale = useTransform(gatedProgress, [0.15, 0.45, 0.55, 0.7], [0, 250, 250, 800]);
+  const meltScale = useTransform(gatedProgress, [0, 0.3, 0.4, 0.55], [0, 250, 250, 800]);
   useMotionValueEvent(meltScale, 'change', (latest) => {
     if (displacementRef.current) {
       displacementRef.current.setAttribute('scale', latest.toString());
     }
   });
 
-  const meltBlur = useTransform(gatedProgress, [0.15, 0.45], [0, 3]);
+  const meltBlur = useTransform(gatedProgress, [0, 0.3], [0, 3]);
   useMotionValueEvent(meltBlur, 'change', (latest) => {
     if (blurRef.current) {
       blurRef.current.setAttribute('stdDeviation', latest.toString());
     }
   });
 
-  const stretchYOffset = useTransform(gatedProgress, [0.15, 0.45, 0.55, 0.7], [0, 600, 600, -2500]);
-  const stretchY = useTransform(gatedProgress, [0.15, 0.45, 0.55, 0.7], [1, 4, 4, 30]);
+  const stretchYOffset = useTransform(gatedProgress, [0, 0.3, 0.4, 0.55], [0, 600, 600, -2500]);
+  const stretchY = useTransform(gatedProgress, [0, 0.3, 0.4, 0.55], [1, 4, 4, 30]);
 
-  const meltFreqX = useTransform(gatedProgress, [0.45, 0.55, 0.7], [0.005, 0.005, 0.03]);
-  const meltFreqY = useTransform(gatedProgress, [0.45, 0.55, 0.7], [0.05, 0.05, 0.5]);
+  const meltFreqX = useTransform(gatedProgress, [0.3, 0.4, 0.55], [0.005, 0.005, 0.03]);
+  const meltFreqY = useTransform(gatedProgress, [0.3, 0.4, 0.55], [0.05, 0.05, 0.5]);
 
   useMotionValueEvent(gatedProgress, 'change', () => {
     if (turbulenceRef.current) {
@@ -50,19 +50,19 @@ export const HeroRevealLayer: React.FC<HeroRevealLayerProps> = ({
     }
   });
 
-  const aiOpacity = useTransform(gatedProgress, [0.65, 0.7], [1, 0]);
+  const aiOpacity = useTransform(gatedProgress, [0.5, 0.55], [1, 0]);
 
-  const opacity1 = useTransform(gatedProgress, [0.22, 0.27, 0.32, 0.37], [0, 1, 1, 0]);
-  const y1 = useTransform(gatedProgress, [0.22, 0.27], [30, 0]);
+  const opacity1 = useTransform(gatedProgress, [0.07, 0.12, 0.17, 0.22], [0, 1, 1, 0]);
+  const y1 = useTransform(gatedProgress, [0.07, 0.12], [30, 0]);
 
-  const opacity2 = useTransform(gatedProgress, [0.39, 0.44, 0.49, 0.54], [0, 1, 1, 0]);
-  const y2 = useTransform(gatedProgress, [0.39, 0.44], [30, 0]);
+  const opacity2 = useTransform(gatedProgress, [0.24, 0.29, 0.34, 0.39], [0, 1, 1, 0]);
+  const y2 = useTransform(gatedProgress, [0.24, 0.29], [30, 0]);
 
-  const opacity3 = useTransform(gatedProgress, [0.56, 0.6, 0.7, 0.77], [0, 1, 1, 0]);
-  const y3 = useTransform(gatedProgress, [0.56, 0.6], [30, 0]);
+  const opacity3 = useTransform(gatedProgress, [0.41, 0.45, 0.55, 0.62], [0, 1, 1, 0]);
+  const y3 = useTransform(gatedProgress, [0.41, 0.45], [30, 0]);
 
-  const opacity4 = useTransform(gatedProgress, [0.85, 0.9], [0, 1]);
-  const y4 = useTransform(gatedProgress, [0.85, 0.9], [30, 0]);
+  const opacity4 = useTransform(gatedProgress, [0.7, 0.75], [0, 1]);
+  const y4 = useTransform(gatedProgress, [0.7, 0.75], [30, 0]);
 
   return (
     <>
