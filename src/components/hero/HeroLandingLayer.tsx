@@ -14,7 +14,7 @@ export const HeroLandingLayer: React.FC<HeroLandingLayerProps> = ({
   isWiggling,
   children,
 }) => {
-  const { activeThemeModule } = useTheme();
+  const { activeThemeModule, cycleTheme } = useTheme();
   const UnlockLayer = activeThemeModule.UnlockEffectLayer;
   const heroVariant = activeThemeModule.getHeroVariant(isUnlocked);
 
@@ -47,7 +47,10 @@ export const HeroLandingLayer: React.FC<HeroLandingLayerProps> = ({
         >
           [Simon]
           <br />
-          <span className={`transition-all duration-1000 ${heroVariant.taglineClassName}`} style={heroVariant.taglineStyle}>
+          <span
+            className={`transition-all duration-1000 ${heroVariant.taglineClassName}`}
+            style={heroVariant.taglineStyle}
+          >
             {heroVariant.taglineText}
           </span>
         </motion.h1>
@@ -56,22 +59,40 @@ export const HeroLandingLayer: React.FC<HeroLandingLayerProps> = ({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.2, delay: 0.4 }}
-          className={`text-2xl sm:text-3xl max-w-4xl font-medium mb-16 leading-tight tracking-tight transition-all duration-1000 ${heroVariant.descriptionClassName}`}
+          className={`text-2xl sm:text-3xl max-w-4xl font-medium mb-10 leading-tight tracking-tight transition-all duration-1000 ${heroVariant.descriptionClassName}`}
           style={heroVariant.descriptionStyle}
         >
           {heroVariant.descriptionText}
         </motion.p>
 
-        <motion.button
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.6 }}
-          className={`text-xl hover:underline decoration-1 underline-offset-4 tracking-tight font-medium flex items-center gap-1 group pointer-events-auto cursor-none transition-colors ${heroVariant.ctaClassName}`}
-          style={heroVariant.ctaStyle}
+          transition={{ duration: 0.9, delay: 0.55, ease: 'easeOut' }}
+          className={`flex flex-col sm:flex-row items-center justify-center gap-4 ${heroVariant.primaryActionRowClassName}`}
         >
-          {heroVariant.ctaText}{' '}
-          <span className="group-hover:translate-x-1 transition-transform">{'>'}</span>
-        </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: 'spring', stiffness: 320, damping: 24 }}
+            onClick={cycleTheme}
+            className={`${heroVariant.actionButtonBaseClassName} ${heroVariant.themeActionClassName}`}
+            style={{ ...heroVariant.actionButtonBaseStyle, ...heroVariant.themeActionStyle }}
+          >
+            {heroVariant.themeActionText}
+          </motion.button>
+
+          <motion.a
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: 'spring', stiffness: 320, damping: 24 }}
+            href="mailto:hello@example.com"
+            className={`${heroVariant.actionButtonBaseClassName} ${heroVariant.contactActionClassName}`}
+            style={{ ...heroVariant.actionButtonBaseStyle, ...heroVariant.contactActionStyle }}
+          >
+            {heroVariant.contactActionText}
+          </motion.a>
+        </motion.div>
       </div>
 
       {children}

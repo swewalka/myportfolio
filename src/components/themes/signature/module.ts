@@ -24,9 +24,6 @@ const signatureLandingLocked = {
   showScrollRescueLights: false,
   scrollRescueLightClassName: '',
   scrollRescueLightCoreClassName: '',
-  cardShellClassName: '',
-  cardRefractionClassName: '',
-  cardEdgeSweepClassName: '',
 };
 
 const signatureLandingUnlocked = {
@@ -48,9 +45,6 @@ const signatureLandingUnlocked = {
   showScrollRescueLights: true,
   scrollRescueLightClassName: 'signature-overclock-rescue-light',
   scrollRescueLightCoreClassName: 'signature-overclock-rescue-light-core',
-  cardShellClassName: 'signature-overclock-card-shell signature-overclock-flicker-target',
-  cardRefractionClassName: 'signature-overclock-card-refraction',
-  cardEdgeSweepClassName: 'signature-overclock-card-edge-sweep',
 };
 
 const signatureHeroLocked: ThemeHeroVariant = {
@@ -78,12 +72,20 @@ const signatureHeroLocked: ThemeHeroVariant = {
     color: 'rgba(255,255,255,0.9)',
     fontFamily: signatureTheme.tokens.typography.fontFamily,
   },
-  ctaText: 'Initiate contact',
-  ctaClassName: '',
-  ctaStyle: {
-    color: '#2997ff',
+  primaryActionRowClassName: 'mt-1 mb-9',
+  actionButtonBaseClassName:
+    'h-14 min-w-[220px] px-8 inline-flex items-center justify-center rounded-xl border text-[0.95rem] font-semibold tracking-wide uppercase transition-all duration-300 pointer-events-auto cursor-pointer',
+  actionButtonBaseStyle: {
     fontFamily: signatureTheme.tokens.typography.fontFamily,
+    letterSpacing: '0.06em',
   },
+  themeActionText: 'Theme Engine',
+  themeActionClassName: 'bg-white text-[#101018] border-white hover:bg-[#f0f0f4] hover:-translate-y-0.5',
+  themeActionStyle: undefined,
+  contactActionText: 'Initiate contact',
+  contactActionClassName:
+    'bg-transparent text-white border-white/55 hover:border-white hover:bg-white/10 hover:-translate-y-0.5',
+  contactActionStyle: undefined,
 };
 
 const signatureHeroUnlocked: ThemeHeroVariant = {
@@ -109,12 +111,21 @@ const signatureHeroUnlocked: ThemeHeroVariant = {
   descriptionStyle: {
     fontFamily: signatureTheme.tokens.typography.fontFamily,
   },
-  ctaText: 'Initiate contact',
-  ctaClassName: 'signature-overclock-cta signature-overclock-flicker-target',
-  ctaStyle: {
-    color: '#2997ff',
+  primaryActionRowClassName: 'mt-1 mb-9',
+  actionButtonBaseClassName:
+    'h-14 min-w-[220px] px-8 inline-flex items-center justify-center rounded-xl border text-[0.95rem] font-semibold tracking-wide uppercase transition-all duration-300 pointer-events-auto cursor-pointer',
+  actionButtonBaseStyle: {
     fontFamily: signatureTheme.tokens.typography.fontFamily,
+    letterSpacing: '0.06em',
   },
+  themeActionText: 'Theme Engine',
+  themeActionClassName:
+    'bg-[#ff003c] text-white border-[#ff496f] shadow-[0_0_22px_rgba(255,0,60,0.5)] hover:bg-[#ff1f56] hover:-translate-y-0.5 signature-overclock-flicker-target',
+  themeActionStyle: undefined,
+  contactActionText: 'Initiate contact',
+  contactActionClassName:
+    'bg-transparent text-[#ffd6de] border-[#ff5a7f]/60 hover:border-[#ff5a7f] hover:bg-[#ff003c]/15 hover:-translate-y-0.5 signature-overclock-flicker-target',
+  contactActionStyle: undefined,
 };
 
 export const signatureThemeModule: ThemeModule = {

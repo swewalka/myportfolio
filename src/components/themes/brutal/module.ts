@@ -81,12 +81,23 @@ const getBrutalHeroVariant = (): ThemeHeroVariant => {
       color: brutalTheme.tokens.colors.textSecondary,
       fontFamily: brutalTheme.tokens.typography.fontFamily,
     },
-    ctaText: 'Initiate contact',
-    ctaClassName: '',
-    ctaStyle: {
-      color: brutalTheme.tokens.colors.accent,
-      fontFamily: brutalTheme.tokens.typography.fontFamily,
+    primaryActionRowClassName: 'mt-1 mb-9',
+    actionButtonBaseClassName:
+      'h-14 min-w-[220px] px-8 inline-flex items-center justify-center border text-[1rem] font-black uppercase transition-all duration-200 pointer-events-auto cursor-pointer',
+    actionButtonBaseStyle: {
+      fontFamily: '"Impact", "Arial Black", sans-serif',
+      letterSpacing: '0.03em',
+      borderRadius: '0px',
+      borderWidth: '4px',
     },
+    themeActionText: 'Theme Engine',
+    themeActionClassName:
+      'bg-[#000] text-[#fff] border-[#000] shadow-[6px_6px_0_#ff3300] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[4px_4px_0_#ff3300]',
+    themeActionStyle: undefined,
+    contactActionText: 'Initiate contact',
+    contactActionClassName:
+      'bg-[#fff] text-[#000] border-[#000] shadow-[6px_6px_0_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[4px_4px_0_#000]',
+    contactActionStyle: undefined,
   };
 };
 

@@ -61,9 +61,6 @@ export interface ThemeLandingVariant {
   showScrollRescueLights?: boolean;
   scrollRescueLightClassName?: string;
   scrollRescueLightCoreClassName?: string;
-  cardShellClassName?: string;
-  cardRefractionClassName?: string;
-  cardEdgeSweepClassName?: string;
 }
 
 export interface ThemeHeroVariant {
@@ -80,9 +77,15 @@ export interface ThemeHeroVariant {
   descriptionText: string;
   descriptionClassName: string;
   descriptionStyle: CSSProperties;
-  ctaText: string;
-  ctaClassName: string;
-  ctaStyle: CSSProperties;
+  primaryActionRowClassName: string;
+  actionButtonBaseClassName: string;
+  actionButtonBaseStyle: CSSProperties;
+  themeActionText: string;
+  themeActionClassName: string;
+  themeActionStyle?: CSSProperties;
+  contactActionText: string;
+  contactActionClassName: string;
+  contactActionStyle?: CSSProperties;
 }
 
 export interface ThemeModule {

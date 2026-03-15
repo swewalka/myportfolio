@@ -84,12 +84,21 @@ const getCosmicHeroVariant = (): ThemeHeroVariant => {
       color: cosmicTheme.tokens.colors.textSecondary,
       fontFamily: cosmicTheme.tokens.typography.fontFamily,
     },
-    ctaText: 'Initiate contact',
-    ctaClassName: '',
-    ctaStyle: {
-      color: cosmicTheme.tokens.colors.accent,
+    primaryActionRowClassName: 'mt-1 mb-9',
+    actionButtonBaseClassName:
+      'h-14 min-w-[220px] px-8 inline-flex items-center justify-center rounded-full border text-[0.95rem] font-medium uppercase transition-all duration-300 pointer-events-auto cursor-pointer',
+    actionButtonBaseStyle: {
       fontFamily: cosmicTheme.tokens.typography.fontFamily,
+      letterSpacing: '0.16em',
     },
+    themeActionText: 'Theme Engine',
+    themeActionClassName:
+      'bg-[#f1e5c8] text-[#0d1520] border-[#f5e8ca] shadow-[0_0_20px_rgba(223,198,151,0.32)] hover:bg-[#f8eed7] hover:-translate-y-0.5',
+    themeActionStyle: undefined,
+    contactActionText: 'Initiate contact',
+    contactActionClassName:
+      'bg-transparent text-[#f1e5c8] border-[rgba(223,198,151,0.55)] hover:border-[rgba(223,198,151,0.82)] hover:bg-[rgba(223,198,151,0.12)] hover:-translate-y-0.5',
+    contactActionStyle: undefined,
   };
 };
 

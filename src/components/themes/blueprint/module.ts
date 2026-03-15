@@ -85,12 +85,22 @@ const getBlueprintHeroVariant = (): ThemeHeroVariant => {
       color: blueprintTheme.tokens.colors.textSecondary,
       fontFamily: blueprintTheme.tokens.typography.fontFamily,
     },
-    ctaText: 'Initiate contact',
-    ctaClassName: '',
-    ctaStyle: {
-      color: blueprintTheme.tokens.colors.accent,
-      fontFamily: blueprintTheme.tokens.typography.fontFamily,
+    primaryActionRowClassName: 'mt-1 mb-9',
+    actionButtonBaseClassName:
+      'h-14 min-w-[220px] px-8 inline-flex items-center justify-center border text-[0.95rem] font-semibold uppercase transition-all duration-300 pointer-events-auto cursor-pointer',
+    actionButtonBaseStyle: {
+      fontFamily: 'monospace',
+      letterSpacing: '0.12em',
+      borderRadius: '0px',
     },
+    themeActionText: 'Theme Engine',
+    themeActionClassName:
+      'bg-[#00e6ff] text-[#03111f] border-[#00f0ff] shadow-[0_0_18px_rgba(0,230,255,0.28)] hover:bg-[#35f0ff] hover:-translate-y-0.5',
+    themeActionStyle: undefined,
+    contactActionText: 'Initiate contact',
+    contactActionClassName:
+      'bg-transparent text-[#7fdfff] border-[#00e6ff]/55 hover:border-[#00e6ff] hover:bg-[#00e6ff]/10 hover:-translate-y-0.5',
+    contactActionStyle: undefined,
   };
 };
 

@@ -16,6 +16,18 @@ function HeroContent() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const previousScrollRestoration = window.history.scrollRestoration;
+
+    // Keep landing deterministic on reload: start at top instead of restored scroll offset.
+    window.history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+
+    return () => {
+      window.history.scrollRestoration = previousScrollRestoration;
+    };
+  }, []);
+
+  useEffect(() => {
     const html = document.documentElement;
     const body = document.body;
 
@@ -51,53 +63,6 @@ function HeroContent() {
 
   const defaultBgColor = useTransform(scrollYProgress, [0.8, 0.9], ['#000000', '#fcfcfc']);
   const bgColor = isStarterTheme ? defaultBgColor : 'transparent';
-  const revealAutoScrollCapProgress = 0.13;
-  const autoScrollDurationMs = 1800;
-
-  const easeInOutCubic = (t: number) =>
-    t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-
-  const animateWindowScrollTo = (targetY: number, durationMs: number) => {
-    const startY = window.scrollY;
-    const distance = targetY - startY;
-    if (Math.abs(distance) < 1) return;
-
-    const startTime = performance.now();
-
-    const step = (now: number) => {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / durationMs, 1);
-      const eased = easeInOutCubic(progress);
-      window.scrollTo(0, startY + distance * eased);
-
-      if (progress < 1) {
-        requestAnimationFrame(step);
-      }
-    };
-
-    requestAnimationFrame(step);
-  };
-
-  const scrollToScrollCue = () => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const containerTop = container.offsetTop;
-    const scrollRange = Math.max(container.offsetHeight - window.innerHeight, 0);
-    const maxSafeY = containerTop + scrollRange * revealAutoScrollCapProgress;
-    const desiredDelta = Math.min(window.innerHeight * 0.35, 420);
-    const targetY = Math.min(window.scrollY + desiredDelta, maxSafeY);
-
-    if (targetY <= window.scrollY + 1) return;
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) {
-      window.scrollTo({ top: targetY, behavior: 'auto' });
-      return;
-    }
-
-    animateWindowScrollTo(targetY, autoScrollDurationMs);
-  };
 
   return (
     <div ref={containerRef} className="h-[1000vh] w-full relative">
@@ -115,13 +80,6 @@ function HeroContent() {
                 setIsDestructiveUnlocked(true);
                 setIsWiggling(true);
                 setTimeout(() => setIsWiggling(false), 520);
-
-                // Wait for unlock styles to apply, then nudge down to expose the scroll cue.
-                requestAnimationFrame(() => {
-                  requestAnimationFrame(() => {
-                    scrollToScrollCue();
-                  });
-                });
               }}
             />
           </HeroLandingLayer>
