@@ -6,12 +6,12 @@ import { BrutalEffects } from '../themes/effects/BrutalEffects';
 import { CosmicEffects } from '../themes/effects/CosmicEffects';
 
 export const ThemeTransitionLayer: React.FC = () => {
-  const { activeThemeId, activeThemeConfig } = useTheme();
+  const { activeThemeId, activeThemeConfig, isDefaultTheme } = useTheme();
 
   return (
     <div 
       className="absolute inset-0 pointer-events-none z-10 overflow-hidden mix-blend-normal transition-colors duration-1000"
-      style={{ backgroundColor: activeThemeConfig?.tokens.colors.background || 'transparent' }}
+      style={{ backgroundColor: isDefaultTheme ? 'transparent' : activeThemeConfig.tokens.colors.background }}
     >
       <AnimatePresence>
         {activeThemeId === 'blueprint' && <BlueprintEffects key="blueprint" />}

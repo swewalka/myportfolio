@@ -36,5 +36,8 @@ export interface ThemeTokens {
 export interface ThemeConfig {
   id: ThemeId;
   label: string;
+  content: {
+    heroTagline: string;
+  };
   tokens: ThemeTokens;
 }

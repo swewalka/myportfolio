@@ -3,6 +3,9 @@ import type { ThemeConfig } from '../types';
 export const blueprintTheme: ThemeConfig = {
   id: 'blueprint',
   label: 'Blueprint Mode',
+  content: {
+    heroTagline: 'Architected.',
+  },
   tokens: {
     colors: {
       background: '#040d1a', // Dark blue-black

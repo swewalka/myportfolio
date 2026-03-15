@@ -1,73 +1,130 @@
-# React + TypeScript + Vite
+# My Portfolio (React + TypeScript + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Prerequisites
+- Node.js **22.x** (or >=20.19)
+- npm **10+**
 
-Currently, two official plugins are available:
+Check versions:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+node -v
+npm -v
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Setup
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+npm install
+npm run dev
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Common setup errors and how to fix them
+
+### 1) `ERESOLVE could not resolve` during install
+
+You may hit a peer-dependency conflict between `vite` and `@tailwindcss/vite`.
+
+**Fix options (pick one):**
+
+1. Use npm's compatibility mode:
+
+```bash
+npm install --legacy-peer-deps
+```
+
+2. Or keep package versions aligned in `package.json`:
+   - `vite` should match the peer range required by `@tailwindcss/vite`
+   - `@vitejs/plugin-react` should also be compatible with that Vite version
+
+After changing versions:
+
+```bash
+rm -rf node_modules package-lock.json
+npm install
+```
+
+---
+
+### 2) `Cannot find type definition file for 'vite/client'` or `'node'`
+
+This usually means dependencies were not installed correctly.
+
+**Fix:**
+
+```bash
+npm install
+```
+
+Then verify that these directories exist:
+
+- `node_modules/vite`
+- `node_modules/@types/node`
+
+If install partially failed, clean and reinstall:
+
+```bash
+rm -rf node_modules package-lock.json
+npm install --legacy-peer-deps
+```
+
+---
+
+### 3) `vite: not found` when running `npm run dev`
+
+This means `node_modules/.bin/vite` is missing due an incomplete install.
+
+**Fix:** reinstall dependencies (same as above), then run:
+
+```bash
+npm run dev
+```
+
+---
+
+### 4) ESLint error: `Cannot find package '@eslint/js'`
+
+This indicates dev dependencies are missing or blocked by your registry/proxy policy.
+
+**Fixes:**
+
+1. Verify registry access:
+
+```bash
+npm config get registry
+npm ping
+```
+
+2. If your environment requires an internal registry, set it explicitly:
+
+```bash
+npm config set registry <your-internal-registry-url>
+npm install
+```
+
+3. If a proxy is required, configure valid `HTTP_PROXY`/`HTTPS_PROXY` values (or unset invalid ones).
+
+---
+
+### 5) `403 Forbidden` from `registry.npmjs.org`
+
+Your environment is blocking direct npmjs access.
+
+**Fix:**
+- Use your company/artifact proxy registry (Nexus/Artifactory/Verdaccio/GitHub Packages).
+- Ensure your npm auth token is configured if the proxy requires it.
+
+Example:
+
+```bash
+npm config set registry https://<internal-registry>/
+npm config set // <internal-registry>/:_authToken <token>
+npm install
+```
+
+## Validate setup
+
+```bash
+npm run build
+npm run lint
+npm run dev
 ```
