@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useCursor } from '../CursorManager';
 import { useTheme } from '../themes/ThemeManager';
 
-export const ThemeCardRight: React.FC = () => {
+export const ThemeCardRight: React.FC<{ isOverclocked?: boolean }> = ({ isOverclocked = false }) => {
   const { nextMode } = useCursor();
   const { activeThemeConfig, isDefaultTheme, hasActivatedLiquidAmbient } = useTheme();
 
@@ -14,15 +14,18 @@ export const ThemeCardRight: React.FC = () => {
   let titleClass = 'text-[#f5f5f7]';
   let descClass = 'text-[#a1a1a6]';
   let glowClass = 'bg-white/5 opacity-0 group-hover:opacity-100';
-  let ringClass = '';
+  const ringClass = '';
   
   if (!isDefaultTheme) {
-    // Map theme tokens directly using style injected variables or standard mapping
-    // We'll use style props for exact colors
-    bgClass = ''; // handeled by style
+    bgClass = ''; // handled by style
     titleClass = '';
     descClass = '';
     glowClass = 'opacity-0 group-hover:opacity-100';
+  } else if (isOverclocked) {
+    bgClass = 'bg-[#0a0000] border-[#ff003c]/40 shadow-[0_8px_32px_0_rgba(255,0,60,0.2)] hover:bg-[#150000]';
+    titleClass = 'text-[#ff4a4a] drop-shadow-[0_0_12px_rgba(255,0,60,0.7)]';
+    descClass = 'text-[#ffb3b3]/80';
+    glowClass = 'bg-red-700/20 opacity-0 group-hover:opacity-100';
   } else if (hasActivatedLiquidAmbient) {
     bgClass = 'bg-white/10 backdrop-blur-3xl border-white/40 shadow-[0_8px_32px_0_rgba(255,255,255,0.15)] ring-1 ring-white/20 hover:bg-white/20';
     titleClass = 'text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]';
@@ -46,7 +49,9 @@ export const ThemeCardRight: React.FC = () => {
       whileHover={{ scale: hoverScale, transition: { duration: 0.2 } }}
       whileTap={{ scale: tapScale, transition: { duration: 0.1 } }}
       onClick={() => nextMode()}
-      className={`group transition-all overflow-hidden relative pointer-events-auto cursor-pointer flex-1 border ${bgClass} ${ringClass}`}
+      className={`group transition-all overflow-hidden relative pointer-events-auto cursor-pointer flex-1 border ${bgClass} ${ringClass} ${
+        isOverclocked && isDefaultTheme ? 'critical-card-shell critical-flicker-target' : ''
+      }`}
       style={{
         borderRadius: borderRadius,
         borderWidth: borderWidth,
@@ -64,6 +69,13 @@ export const ThemeCardRight: React.FC = () => {
           backgroundColor: !isDefaultTheme ? activeThemeConfig.tokens.colors.cardRingHover : undefined
         }}
       />
+
+      {isOverclocked && isDefaultTheme && (
+        <>
+          <div className="critical-card-refraction" />
+          <div className="critical-card-edge-sweep" />
+        </>
+      )}
       
       <h3 
         className={`text-4xl font-semibold tracking-tight mb-4 relative z-10 transition-colors duration-1000 ${titleClass}`}

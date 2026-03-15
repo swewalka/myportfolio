@@ -15,6 +15,8 @@ function HeroContent() {
   } = useTheme();
 
   const [isDestructiveUnlocked, setIsDestructiveUnlocked] = useState(false);
+  const [shouldLockScroll, setShouldLockScroll] = useState(false);
+  const [isWiggling, setIsWiggling] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -29,6 +31,11 @@ function HeroContent() {
     if (latest >= 0.01 && !hasActivatedLiquidAmbient) {
       activateLiquidAmbient();
     }
+    if (latest >= 0.025 && !shouldLockScroll && !isDestructiveUnlocked) {
+      setShouldLockScroll(true);
+    } else if (latest < 0.02 && shouldLockScroll) {
+      setShouldLockScroll(false);
+    }
   });
 
   const defaultBgColor = useTransform(scrollYProgress, [0.8, 0.9], ['#000000', '#fcfcfc']);
@@ -37,14 +44,14 @@ function HeroContent() {
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
 
-    if (!isDestructiveUnlocked) {
+    if (shouldLockScroll && !isDestructiveUnlocked) {
       document.body.style.overflow = 'hidden';
     }
 
     return () => {
       document.body.style.overflow = previousOverflow;
     };
-  }, [isDestructiveUnlocked]);
+  }, [shouldLockScroll, isDestructiveUnlocked]);
 
   return (
     <div ref={containerRef} className="h-[1000vh] w-full relative">
@@ -57,17 +64,23 @@ function HeroContent() {
         <HeroDestructiveLayer
           scrollYProgress={scrollYProgress}
           isUnlocked={isDestructiveUnlocked}
+          isWiggling={isWiggling}
           isDefaultTheme={isDefaultTheme}
           hasActivatedLiquidAmbient={hasActivatedLiquidAmbient}
           activeThemeConfig={activeThemeConfig}
-        />
-
-        <HeroCards
-          opacity={cardsOpacity}
-          y={cardsY}
-          isDestructiveUnlocked={isDestructiveUnlocked}
-          onUnlockDestructiveMode={() => setIsDestructiveUnlocked(true)}
-        />
+        >
+          <HeroCards
+            opacity={cardsOpacity}
+            y={cardsY}
+            isDestructiveUnlocked={isDestructiveUnlocked}
+            onUnlockDestructiveMode={() => {
+              setIsDestructiveUnlocked(true);
+              setIsWiggling(true);
+              // Abrupt unlock jolt lasts briefly, then reset for future triggers.
+              setTimeout(() => setIsWiggling(false), 520);
+            }}
+          />
+        </HeroDestructiveLayer>
       </motion.div>
     </div>
   );

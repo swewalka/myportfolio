@@ -2,39 +2,39 @@ import type { ThemeConfig } from '../types';
 
 export const cosmicTheme: ThemeConfig = {
   id: 'cosmic',
-  label: 'Cosmic Mode',
+  label: 'Retro Cosmic Mode',
   content: {
-    heroTagline: 'Cosmic.',
+    heroTagline: 'Expedition.',
   },
   tokens: {
     colors: {
-      background: '#010205', // Deep space black
-      textPrimary: '#e6e6fa', // Soft starlight lavender/white
-      textSecondary: '#8a8a9a',
-      accent: '#b366ff', // Nebula purple
-      surface: 'rgba(15, 15, 25, 0.4)',
-      surfaceHover: 'rgba(25, 25, 45, 0.6)',
-      border: 'rgba(180, 150, 255, 0.1)',
-      borderHover: 'rgba(180, 150, 255, 0.3)',
-      cardRing: 'rgba(180, 150, 255, 0.05)',
-      cardRingHover: 'rgba(180, 150, 255, 0.2)',
-      cardDropShadow: '0 20px 50px rgba(80, 30, 150, 0.2)',
-      textDropShadow: '0 0 20px rgba(180, 150, 255, 0.5)',
+      background: '#060b13',
+      textPrimary: '#f1e5c8',
+      textSecondary: '#b7a98c',
+      accent: '#86c4d0',
+      surface: 'rgba(13, 21, 31, 0.56)',
+      surfaceHover: 'rgba(20, 31, 45, 0.7)',
+      border: 'rgba(223, 198, 151, 0.24)',
+      borderHover: 'rgba(223, 198, 151, 0.46)',
+      cardRing: 'rgba(134, 196, 208, 0.08)',
+      cardRingHover: 'rgba(134, 196, 208, 0.24)',
+      cardDropShadow: '0 24px 56px rgba(4, 8, 16, 0.58)',
+      textDropShadow: '0 0 18px rgba(222, 186, 129, 0.2)',
     },
     typography: {
-      fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif', // Clean, expansive default
+      fontFamily: '"Avenir Next", "Futura", "Trebuchet MS", sans-serif',
       fontStyle: 'normal',
-      titleWeight: '300', // Light and airy
-      baseTracking: '0.1em', // Expansive
+      titleWeight: '500',
+      baseTracking: '0.08em',
     },
     layout: {
-      radius: '40px', // Very round, pebble-like floating objects
+      radius: '32px',
       borderWidth: '1px',
       cardPadding: '4rem',
     },
     motion: {
-      transitionDuration: 1.8, // Slow drift
-      hoverScale: 1.03, // subtle float up
+      transitionDuration: 1.6,
+      hoverScale: 1.025,
       tapScale: 0.97,
     },
   },

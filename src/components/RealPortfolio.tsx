@@ -14,7 +14,7 @@ export default function RealPortfolio() {
             viewport={{ once: true }}
             className="text-5xl md:text-7xl font-bold mb-6 rotate-[-1deg]"
           >
-            hi, i'm [Name].
+            hi, i'm Simon Wewalka.
           </motion.h2>
           <motion.div
             initial={{ opacity: 0 }}
