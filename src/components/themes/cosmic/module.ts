@@ -39,9 +39,9 @@ const getCosmicLandingVariant = (isUnlocked: boolean): ThemeLandingVariant => {
     },
     shimmerClassName: 'via-amber-100/30',
     shadowPulse: [
-      '0 0 0 0 rgba(214,180,124,0)',
-      '0 0 22px 5px rgba(214,180,124,0.26)',
-      '0 0 0 0 rgba(214,180,124,0)',
+      '0 0 14px 2px rgba(214,180,124,0.16)',
+      '0 0 24px 6px rgba(214,180,124,0.3)',
+      '0 0 14px 2px rgba(214,180,124,0.16)',
     ],
     scrollIndicatorStyle: {
       color: 'rgba(241, 229, 200, 0.76)',

@@ -43,9 +43,9 @@ const getBlueprintLandingVariant = (isUnlocked: boolean): ThemeLandingVariant =>
     },
     shimmerClassName: 'via-orange-900/15',
     shadowPulse: [
-      '0 0 0 0 rgba(0,0,0,0)',
-      '0 0 0 1px rgba(71, 64, 52, 0.2), 0 10px 24px rgba(51, 42, 31, 0.14)',
-      '0 0 0 0 rgba(0,0,0,0)',
+      '0 0 0 1px rgba(71, 64, 52, 0.18), 0 8px 20px rgba(51, 42, 31, 0.12)',
+      '0 0 0 1px rgba(71, 64, 52, 0.24), 0 12px 28px rgba(51, 42, 31, 0.18)',
+      '0 0 0 1px rgba(71, 64, 52, 0.18), 0 8px 20px rgba(51, 42, 31, 0.12)',
     ],
     scrollIndicatorStyle: {
       color: 'rgba(58, 52, 43, 0.78)',
