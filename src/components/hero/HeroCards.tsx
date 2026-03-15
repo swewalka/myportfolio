@@ -14,6 +14,7 @@ export const HeroCards: React.FC<HeroCardsProps> = ({
 }) => {
   const { activeThemeModule } = useTheme();
   const landingVariant = activeThemeModule.getLandingVariant(isDestructiveUnlocked);
+  const isCosmicTheme = activeThemeModule.config.id === 'cosmic';
 
   return (
     <motion.div
@@ -69,10 +70,9 @@ export const HeroCards: React.FC<HeroCardsProps> = ({
                 ease: 'easeInOut',
               },
             }}
-            className={`${landingVariant.exploreButtonClassName} h-[60px] w-[260px] justify-center whitespace-nowrap text-lg leading-none`}
+            className={`${landingVariant.exploreButtonClassName} h-[60px] w-[260px] justify-center whitespace-nowrap ${isCosmicTheme ? 'text-[0.95rem]' : 'text-lg'} leading-none`}
             style={{
               ...landingVariant.exploreButtonStyle,
-              fontSize: '1.125rem',
               lineHeight: '1',
             }}
           >

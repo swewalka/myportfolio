@@ -1,0 +1,506 @@
+.blueprint-draft-layer {
+  --draft-paper: #ece8dc;
+  --draft-paper-warm: #f6f2e8;
+  --draft-graphite: rgba(39, 35, 28, 0.74);
+  --draft-graphite-soft: rgba(82, 75, 64, 0.28);
+  --draft-grid-major: rgba(59, 52, 44, 0.14);
+  --draft-grid-minor: rgba(59, 52, 44, 0.08);
+  --draft-guide: rgba(185, 90, 47, 0.3);
+  --draft-accent: #b95a2f;
+  --draft-alert: #ac3f32;
+}
+
+.blueprint-draft-paper {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 15%, rgba(255, 255, 255, 0.6), transparent 38%),
+    radial-gradient(circle at 82% 72%, rgba(214, 203, 187, 0.3), transparent 40%),
+    linear-gradient(155deg, rgba(255, 255, 255, 0.22), transparent 55%),
+    linear-gradient(var(--draft-paper), var(--draft-paper-warm));
+}
+
+.blueprint-draft-paper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.2;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 3px,
+      rgba(113, 103, 87, 0.05) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 5px,
+      rgba(113, 103, 87, 0.04) 6px
+    );
+  mix-blend-mode: multiply;
+}
+
+.blueprint-draft-grid-minor,
+.blueprint-draft-grid-major {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.blueprint-draft-grid-minor {
+  opacity: 0.48;
+  background-image:
+    linear-gradient(var(--draft-grid-minor) 1px, transparent 1px),
+    linear-gradient(90deg, var(--draft-grid-minor) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+
+.blueprint-draft-grid-major {
+  opacity: 0.62;
+  background-image:
+    linear-gradient(var(--draft-grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--draft-grid-major) 1px, transparent 1px);
+  background-size: 130px 130px;
+}
+
+.blueprint-draft-frame {
+  position: absolute;
+  inset: 2rem;
+  border: 1px solid rgba(65, 58, 47, 0.28);
+}
+
+.blueprint-draft-frame::before,
+.blueprint-draft-frame::after {
+  content: '';
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  border-top: 1px dashed rgba(84, 76, 63, 0.2);
+}
+
+.blueprint-draft-frame::before {
+  top: 1rem;
+}
+
+.blueprint-draft-frame::after {
+  bottom: 1rem;
+}
+
+.blueprint-draft-corner {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  border-color: rgba(59, 53, 44, 0.48);
+}
+
+.blueprint-draft-corner--tl {
+  top: 1.2rem;
+  left: 1.2rem;
+  border-top: 1px solid;
+  border-left: 1px solid;
+}
+
+.blueprint-draft-corner--tr {
+  top: 1.2rem;
+  right: 1.2rem;
+  border-top: 1px solid;
+  border-right: 1px solid;
+}
+
+.blueprint-draft-corner--bl {
+  bottom: 1.2rem;
+  left: 1.2rem;
+  border-bottom: 1px solid;
+  border-left: 1px solid;
+}
+
+.blueprint-draft-corner--br {
+  bottom: 1.2rem;
+  right: 1.2rem;
+  border-bottom: 1px solid;
+  border-right: 1px solid;
+}
+
+.blueprint-draft-construction-line {
+  position: absolute;
+  background: var(--draft-graphite-soft);
+  transform-origin: left center;
+  animation: draft-line-fade 6s linear infinite;
+}
+
+.blueprint-draft-construction-line--h {
+  height: 1px;
+  width: 100%;
+}
+
+.blueprint-draft-construction-line--v {
+  width: 1px;
+  height: 100%;
+  transform-origin: center top;
+}
+
+.blueprint-draft-dimension-label {
+  position: absolute;
+  font-family: "IBM Plex Mono", "SFMono-Regular", "Menlo", "Consolas", monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(68, 60, 50, 0.64);
+  padding: 0.22rem 0.34rem;
+  border: 1px solid rgba(78, 69, 56, 0.28);
+  background: rgba(246, 241, 231, 0.7);
+  animation: draft-label-shift 8s steps(2, end) infinite;
+}
+
+.blueprint-draft-crosshair {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  opacity: 0.65;
+}
+
+.blueprint-draft-crosshair::before,
+.blueprint-draft-crosshair::after {
+  content: '';
+  position: absolute;
+  background: rgba(59, 53, 44, 0.48);
+}
+
+.blueprint-draft-crosshair::before {
+  left: 50%;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  transform: translateX(-50%);
+}
+
+.blueprint-draft-crosshair::after {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  transform: translateY(-50%);
+}
+
+.blueprint-draft-crosshair i {
+  display: block;
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(185, 90, 47, 0.42);
+}
+
+.blueprint-draft-crosshair--pulse {
+  animation: draft-crosshair-pulse 4.6s linear infinite;
+}
+
+.blueprint-draft-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.blueprint-draft-overlay line,
+.blueprint-draft-overlay path {
+  stroke: rgba(74, 65, 53, 0.42);
+  stroke-width: 0.16;
+  fill: none;
+}
+
+.blueprint-draft-overlay .blueprint-draft-guide-line {
+  stroke: rgba(185, 90, 47, 0.38);
+  stroke-dasharray: 1.2 0.7;
+}
+
+.blueprint-draft-overlay text {
+  fill: rgba(66, 58, 47, 0.66);
+  font-family: "IBM Plex Mono", "SFMono-Regular", "Menlo", "Consolas", monospace;
+  font-size: 1.2px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.draft-mode-badge {
+  position: relative;
+  box-shadow: 0 3px 12px rgba(49, 41, 31, 0.08);
+}
+
+.draft-mode-badge::before,
+.draft-mode-badge::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 1px;
+  background: rgba(73, 66, 54, 0.38);
+}
+
+.draft-mode-badge::before {
+  left: -18px;
+}
+
+.draft-mode-badge::after {
+  right: -18px;
+}
+
+.draft-mode-badge-text {
+  letter-spacing: 0.22em;
+}
+
+.draft-mode-title {
+  position: relative;
+  text-transform: uppercase;
+  text-rendering: geometricPrecision;
+}
+
+.draft-mode-title::before,
+.draft-mode-title::after {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "IBM Plex Mono", "SFMono-Regular", "Menlo", "Consolas", monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: rgba(75, 68, 56, 0.58);
+  white-space: nowrap;
+}
+
+.draft-mode-title::before {
+  content: '< W REF >';
+  top: -1.4rem;
+}
+
+.draft-mode-title::after {
+  content: '0  5  10';
+  bottom: -1.5rem;
+}
+
+.draft-mode-tagline {
+  position: relative;
+  text-shadow: none;
+}
+
+.draft-mode-tagline::after {
+  content: '';
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  bottom: -0.18em;
+  border-top: 1px dashed rgba(185, 90, 47, 0.5);
+}
+
+.draft-mode-description {
+  position: relative;
+}
+
+.draft-mode-description::before {
+  content: 'Spec / Rev.02';
+  position: absolute;
+  top: -1.45rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: rgba(83, 75, 62, 0.62);
+  text-transform: uppercase;
+}
+
+.draft-mode-action-row {
+  position: relative;
+}
+
+.draft-mode-action-row::before {
+  content: '';
+  position: absolute;
+  left: -18px;
+  right: -18px;
+  top: -12px;
+  border-top: 1px dashed rgba(77, 68, 57, 0.32);
+}
+
+.draft-mode-action-button {
+  position: relative;
+  isolation: isolate;
+  color: #2d281f;
+  border-color: rgba(67, 60, 49, 0.56);
+  background: rgba(246, 241, 233, 0.82);
+  box-shadow: 0 3px 12px rgba(48, 39, 28, 0.1);
+}
+
+.draft-mode-action-button::before,
+.draft-mode-action-button::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 1px solid rgba(67, 60, 49, 0.6);
+  transition: transform 180ms linear, opacity 180ms linear;
+}
+
+.draft-mode-action-button::before {
+  top: -4px;
+  left: -4px;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.draft-mode-action-button::after {
+  right: -4px;
+  bottom: -4px;
+  border-top: 0;
+  border-left: 0;
+}
+
+.draft-mode-action-button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(41, 36, 29, 0.78);
+}
+
+.draft-mode-action-button:hover::before {
+  transform: translate(-1px, -1px);
+}
+
+.draft-mode-action-button:hover::after {
+  transform: translate(1px, 1px);
+}
+
+.draft-mode-action-primary {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(185, 90, 47, 0.1) 0%,
+      rgba(185, 90, 47, 0.16) 50%,
+      rgba(185, 90, 47, 0.1) 100%
+    ),
+    rgba(246, 241, 233, 0.9);
+  border-color: rgba(124, 59, 32, 0.66);
+}
+
+.draft-mode-action-primary:hover {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(185, 90, 47, 0.18) 0%,
+      rgba(185, 90, 47, 0.22) 50%,
+      rgba(185, 90, 47, 0.18) 100%
+    ),
+    rgba(246, 241, 233, 0.95);
+}
+
+.draft-mode-action-secondary {
+  background: rgba(246, 241, 233, 0.5);
+}
+
+.draft-mode-action-secondary:hover {
+  background: rgba(246, 241, 233, 0.76);
+}
+
+.draft-mode-explore-button {
+  position: relative;
+  box-shadow: 0 4px 14px rgba(48, 39, 27, 0.08);
+}
+
+.draft-mode-explore-button::before,
+.draft-mode-explore-button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 12px;
+  border-top: 1px solid rgba(73, 66, 54, 0.42);
+}
+
+.draft-mode-explore-button::before {
+  left: 10px;
+}
+
+.draft-mode-explore-button::after {
+  right: 10px;
+}
+
+.draft-mode-explore-button--active {
+  animation: draft-snap-enter 420ms steps(3, end) both;
+}
+
+.draft-mode-scroll-indicator {
+  position: relative;
+}
+
+.draft-mode-scroll-copy {
+  letter-spacing: 0.16em;
+}
+
+.draft-mode-scroll-copy::before,
+.draft-mode-scroll-copy::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 18px;
+  border-top: 1px dashed rgba(68, 60, 50, 0.42);
+}
+
+.draft-mode-scroll-copy::before {
+  right: calc(100% + 9px);
+}
+
+.draft-mode-scroll-copy::after {
+  left: calc(100% + 9px);
+}
+
+.draft-mode-scroll-arrow {
+  filter: none;
+}
+
+@keyframes draft-line-fade {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes draft-crosshair-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  45% {
+    opacity: 0.78;
+  }
+  60% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes draft-label-shift {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(1px);
+  }
+}
+
+@keyframes draft-snap-enter {
+  0% {
+    transform: translateY(3px);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 1024px) {
+  .blueprint-draft-frame {
+    inset: 1.2rem;
+  }
+
+  .draft-mode-title::before,
+  .draft-mode-title::after,
+  .draft-mode-description::before {
+    font-size: 9px;
+  }
+}

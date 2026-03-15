@@ -2,39 +2,39 @@ import type { ThemeConfig } from '../core/types';
 
 export const blueprintTheme: ThemeConfig = {
   id: 'blueprint',
-  label: 'Blueprint Mode',
+  label: 'Engineering Draft',
   content: {
-    heroTagline: 'Architected.',
+    heroTagline: 'Drafted.',
   },
   tokens: {
     colors: {
-      background: '#040d1a', // Dark blue-black
-      textPrimary: '#66b3ff', // Blueprint cyan/blue
-      textSecondary: '#3377cc',
-      accent: '#00e6ff',
-      surface: 'rgba(4, 13, 26, 0.8)',
-      surfaceHover: 'rgba(10, 30, 60, 0.9)',
-      border: 'rgba(102, 179, 255, 0.4)',
-      borderHover: 'rgba(102, 179, 255, 0.8)',
-      cardRing: 'rgba(102, 179, 255, 0.2)',
-      cardRingHover: 'rgba(102, 179, 255, 0.5)',
-      cardDropShadow: '0 4px 20px rgba(0, 50, 100, 0.4)',
-      textDropShadow: '0 0 8px rgba(102, 179, 255, 0.4)',
+      background: '#ece8dc',
+      textPrimary: '#27231c',
+      textSecondary: '#5f574c',
+      accent: '#b95a2f',
+      surface: 'rgba(248, 244, 235, 0.88)',
+      surfaceHover: 'rgba(244, 239, 229, 0.94)',
+      border: 'rgba(73, 66, 54, 0.38)',
+      borderHover: 'rgba(46, 41, 34, 0.65)',
+      cardRing: 'rgba(110, 103, 90, 0.18)',
+      cardRingHover: 'rgba(80, 73, 60, 0.3)',
+      cardDropShadow: '0 12px 28px rgba(36, 30, 22, 0.12)',
+      textDropShadow: 'none',
     },
     typography: {
-      fontFamily: 'monospace, "Courier New", Courier',
+      fontFamily: '"IBM Plex Mono", "SFMono-Regular", "Menlo", "Consolas", monospace',
       fontStyle: 'normal',
-      titleWeight: '400',
-      baseTracking: '0.05em',
+      titleWeight: '600',
+      baseTracking: '0.028em',
     },
     layout: {
-      radius: '0px', // Precise, square edges
-      borderWidth: '1px', // Thin drafting lines
+      radius: '2px',
+      borderWidth: '1px',
       cardPadding: '3rem',
     },
     motion: {
-      transitionDuration: 1.2,
-      hoverScale: 1.0, // No scale, just color/border shifts for precision
+      transitionDuration: 0.7,
+      hoverScale: 1.0,
       tapScale: 0.98,
     },
   },
