@@ -3,6 +3,9 @@ import type { ThemeConfig } from '../types';
 export const cosmicTheme: ThemeConfig = {
   id: 'cosmic',
   label: 'Cosmic Mode',
+  content: {
+    heroTagline: 'Cosmic.',
+  },
   tokens: {
     colors: {
       background: '#010205', // Deep space black

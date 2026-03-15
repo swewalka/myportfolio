@@ -5,7 +5,7 @@ import { useTheme } from '../themes/ThemeManager';
 
 export const ThemeCardRight: React.FC = () => {
   const { nextMode } = useCursor();
-  const { activeThemeConfig, hasActivatedLiquidAmbient } = useTheme();
+  const { activeThemeConfig, isDefaultTheme, hasActivatedLiquidAmbient } = useTheme();
 
   // Determine styles based on active theme
   // If no manual theme is active, fall back to "Liquid" if activated, else default
@@ -16,7 +16,7 @@ export const ThemeCardRight: React.FC = () => {
   let glowClass = 'bg-white/5 opacity-0 group-hover:opacity-100';
   let ringClass = '';
   
-  if (activeThemeConfig) {
+  if (!isDefaultTheme) {
     // Map theme tokens directly using style injected variables or standard mapping
     // We'll use style props for exact colors
     bgClass = ''; // handeled by style
@@ -31,13 +31,13 @@ export const ThemeCardRight: React.FC = () => {
   }
 
   // Common motion and layout based on theme
-  const hoverScale = activeThemeConfig ? activeThemeConfig.tokens.motion.hoverScale : 1.02;
-  const tapScale = activeThemeConfig ? activeThemeConfig.tokens.motion.tapScale : 0.95;
-  const borderRadius = activeThemeConfig ? activeThemeConfig.tokens.layout.radius : '2.5rem';
-  const borderWidth = activeThemeConfig ? activeThemeConfig.tokens.layout.borderWidth : '1px';
-  const transitionDuration = activeThemeConfig ? activeThemeConfig.tokens.motion.transitionDuration : 1;
-  const cardShadow = activeThemeConfig ? activeThemeConfig.tokens.colors.cardDropShadow : undefined;
-  const padding = activeThemeConfig ? activeThemeConfig.tokens.layout.cardPadding : '3rem';
+  const hoverScale = !isDefaultTheme ? activeThemeConfig.tokens.motion.hoverScale : 1.02;
+  const tapScale = !isDefaultTheme ? activeThemeConfig.tokens.motion.tapScale : 0.95;
+  const borderRadius = !isDefaultTheme ? activeThemeConfig.tokens.layout.radius : '2.5rem';
+  const borderWidth = !isDefaultTheme ? activeThemeConfig.tokens.layout.borderWidth : '1px';
+  const transitionDuration = !isDefaultTheme ? activeThemeConfig.tokens.motion.transitionDuration : 1;
+  const cardShadow = !isDefaultTheme ? activeThemeConfig.tokens.colors.cardDropShadow : undefined;
+  const padding = !isDefaultTheme ? activeThemeConfig.tokens.layout.cardPadding : '3rem';
 
   return (
     <motion.div 
@@ -52,8 +52,8 @@ export const ThemeCardRight: React.FC = () => {
         borderWidth: borderWidth,
         padding: padding,
         transitionDuration: `${transitionDuration}s`,
-        backgroundColor: activeThemeConfig?.tokens.colors.surface,
-        borderColor: activeThemeConfig?.tokens.colors.border,
+        backgroundColor: !isDefaultTheme ? activeThemeConfig.tokens.colors.surface : undefined,
+        borderColor: !isDefaultTheme ? activeThemeConfig.tokens.colors.border : undefined,
         boxShadow: cardShadow,
       }}
     >
@@ -61,18 +61,18 @@ export const ThemeCardRight: React.FC = () => {
       <div 
         className={`absolute top-0 right-0 w-64 h-64 rounded-full blur-[80px] -mr-32 -mt-32 transition-all duration-1000 ${glowClass}`} 
         style={{
-          backgroundColor: activeThemeConfig?.tokens.colors.cardRingHover || undefined
+          backgroundColor: !isDefaultTheme ? activeThemeConfig.tokens.colors.cardRingHover : undefined
         }}
       />
       
       <h3 
         className={`text-4xl font-semibold tracking-tight mb-4 relative z-10 transition-colors duration-1000 ${titleClass}`}
         style={{
-          color: activeThemeConfig?.tokens.colors.textPrimary,
-          textShadow: activeThemeConfig?.tokens.colors.textDropShadow,
-          fontFamily: activeThemeConfig?.tokens.typography.fontFamily,
-          fontWeight: activeThemeConfig?.tokens.typography.titleWeight,
-          letterSpacing: activeThemeConfig?.tokens.typography.baseTracking,
+          color: !isDefaultTheme ? activeThemeConfig.tokens.colors.textPrimary : undefined,
+          textShadow: !isDefaultTheme ? activeThemeConfig.tokens.colors.textDropShadow : undefined,
+          fontFamily: !isDefaultTheme ? activeThemeConfig.tokens.typography.fontFamily : undefined,
+          fontWeight: !isDefaultTheme ? activeThemeConfig.tokens.typography.titleWeight : undefined,
+          letterSpacing: !isDefaultTheme ? activeThemeConfig.tokens.typography.baseTracking : undefined,
         }}
       >
         Kinetic Engine.
@@ -81,8 +81,8 @@ export const ThemeCardRight: React.FC = () => {
       <p 
         className={`text-xl font-medium leading-tight max-w-md relative z-10 transition-colors duration-1000 ${descClass}`}
         style={{
-          color: activeThemeConfig?.tokens.colors.textSecondary,
-          fontFamily: activeThemeConfig?.tokens.typography.fontFamily,
+          color: !isDefaultTheme ? activeThemeConfig.tokens.colors.textSecondary : undefined,
+          fontFamily: !isDefaultTheme ? activeThemeConfig.tokens.typography.fontFamily : undefined,
         }}
       >
         Scary fast precision. Interactive motion that bends to your will.
