@@ -49,6 +49,10 @@ export interface ThemeUnlockEffectProps {
   isWiggling: boolean;
 }
 
+export interface ThemeTransitionLayerProps {
+  isPerformanceReduced?: boolean;
+}
+
 export interface ThemeLandingVariant {
   exploreButtonClassName: string;
   exploreButtonStyle: CSSProperties;
@@ -90,7 +94,7 @@ export interface ThemeHeroVariant {
 
 export interface ThemeModule {
   config: ThemeConfig;
-  TransitionLayer: ComponentType;
+  TransitionLayer: ComponentType<ThemeTransitionLayerProps>;
   UnlockEffectLayer: ComponentType<ThemeUnlockEffectProps>;
   getLandingVariant: (isUnlocked: boolean) => ThemeLandingVariant;
   getHeroVariant: (isUnlocked: boolean) => ThemeHeroVariant;

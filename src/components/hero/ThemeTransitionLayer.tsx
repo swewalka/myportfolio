@@ -2,9 +2,16 @@ import React from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { useTheme } from '../themes/themeContext';
 
-export const ThemeTransitionLayer: React.FC = () => {
+interface ThemeTransitionLayerProps {
+  isPerformanceReduced?: boolean;
+}
+
+export const ThemeTransitionLayer: React.FC<ThemeTransitionLayerProps> = ({
+  isPerformanceReduced = false,
+}) => {
   const { activeThemeConfig, activeThemeModule, isStarterTheme } = useTheme();
   const ActiveTransitionLayer = activeThemeModule.TransitionLayer;
+  const shouldRenderThemeVisuals = !(isPerformanceReduced && activeThemeConfig.id === 'cosmic');
 
   return (
     <div
@@ -14,7 +21,12 @@ export const ThemeTransitionLayer: React.FC = () => {
       }}
     >
       <AnimatePresence mode="wait">
-        <ActiveTransitionLayer key={activeThemeConfig.id} />
+        {shouldRenderThemeVisuals && (
+          <ActiveTransitionLayer
+            key={activeThemeConfig.id}
+            isPerformanceReduced={isPerformanceReduced}
+          />
+        )}
       </AnimatePresence>
     </div>
   );

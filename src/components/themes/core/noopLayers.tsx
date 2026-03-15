@@ -1,6 +1,6 @@
 import type React from 'react';
-import type { ThemeUnlockEffectProps } from './types';
+import type { ThemeTransitionLayerProps, ThemeUnlockEffectProps } from './types';
 
-export const NoopTransitionLayer: React.FC = () => null;
+export const NoopTransitionLayer: React.FC<ThemeTransitionLayerProps> = () => null;
 
 export const NoopUnlockEffectLayer: React.FC<ThemeUnlockEffectProps> = () => null;

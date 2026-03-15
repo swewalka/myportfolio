@@ -79,14 +79,23 @@ const trajectoryToPath = (trajectory: RetroRocketTrajectory): string => {
   return `M ${sx} ${sy} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${ex} ${ey}`;
 };
 
-export const RetroRocket: React.FC = () => {
+interface RetroRocketProps {
+  isFrozen?: boolean;
+}
+
+export const RetroRocket: React.FC<RetroRocketProps> = ({ isFrozen = false }) => {
   const { isInFlight, trajectoryIndex, durationMs, flightId } = useRocketFlight({
+    enabled: !isFrozen,
     trajectoryCount: retroCosmicTokens.rocket.trajectories.length,
     minIntervalMs: retroCosmicTokens.rocket.minIntervalMs,
     maxIntervalMs: retroCosmicTokens.rocket.maxIntervalMs,
     minDurationMs: retroCosmicTokens.rocket.minDurationMs,
     maxDurationMs: retroCosmicTokens.rocket.maxDurationMs,
   });
+
+  if (isFrozen) {
+    return null;
+  }
 
   const selectedTrajectory = retroCosmicTokens.rocket.trajectories[trajectoryIndex];
 

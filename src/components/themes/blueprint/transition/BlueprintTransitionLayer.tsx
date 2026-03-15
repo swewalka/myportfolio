@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import type { ThemeTransitionLayerProps } from '../../core/types';
 
-export const BlueprintTransitionLayer: React.FC = () => {
+export const BlueprintTransitionLayer: React.FC<ThemeTransitionLayerProps> = () => {
   const constructionLines = [
     { id: 'h-1', axis: 'h', style: { top: '17%' }, delay: 0.05 },
     { id: 'h-2', axis: 'h', style: { top: '33%' }, delay: 0.2 },

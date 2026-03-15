@@ -6,6 +6,7 @@ import {
   type MotionValue,
 } from 'framer-motion';
 import type { ReactNode } from 'react';
+import { useTheme } from '../themes/themeContext';
 
 interface HeroRevealLayerProps {
   scrollYProgress: MotionValue<number>;
@@ -18,6 +19,8 @@ export const HeroRevealLayer: React.FC<HeroRevealLayerProps> = ({
   isUnlocked,
   children,
 }) => {
+  const { activeThemeConfig, isStarterTheme } = useTheme();
+
   const displacementRef = useRef<SVGFEDisplacementMapElement>(null);
   const blurRef = useRef<SVGFEGaussianBlurElement>(null);
   const turbulenceRef = useRef<SVGFETurbulenceElement>(null);
@@ -64,13 +67,26 @@ export const HeroRevealLayer: React.FC<HeroRevealLayerProps> = ({
   const opacity4 = useTransform(gatedProgress, [0.7, 0.75], [0, 1]);
   const y4 = useTransform(gatedProgress, [0.7, 0.75], [30, 0]);
 
+  const revealBackdropOpacity = useTransform(gatedProgress, [0.15, 0.35, 0.55], [0, 0.95, 0]);
+  const settledBackdropOpacity = useTransform(gatedProgress, [0.28, 0.45, 0.62], [0, 0.9, 1]);
+  const revealBackdropColor = isStarterTheme
+    ? '#000000'
+    : activeThemeConfig.tokens.colors.background;
+  const settledBackdropColor = useTransform(gatedProgress, [0.45, 0.75], [revealBackdropColor, '#fcfcfc']);
+
   return (
     <>
       <motion.div
         initial={{ opacity: 0.38 }}
         animate={{ opacity: 0 }}
         transition={{ duration: 1.8, ease: 'easeOut' }}
-        className="absolute inset-0 bg-black z-[28] pointer-events-none"
+        style={{ backgroundColor: revealBackdropColor }}
+        className="absolute inset-0 z-[28] pointer-events-none transition-colors duration-700"
+      />
+
+      <motion.div
+        style={{ opacity: settledBackdropOpacity, backgroundColor: settledBackdropColor }}
+        className="absolute inset-0 z-[15] pointer-events-none transition-colors duration-700"
       />
 
       <svg className="absolute w-0 h-0" style={{ display: 'none' }}>
@@ -136,6 +152,13 @@ export const HeroRevealLayer: React.FC<HeroRevealLayerProps> = ({
         }}
         className="absolute inset-0 z-20 pointer-events-none"
       >
+        <motion.div
+          style={{
+            opacity: revealBackdropOpacity,
+            backgroundColor: revealBackdropColor,
+          }}
+          className="absolute inset-0 transition-colors duration-700"
+        />
         {children}
       </motion.div>
     </>

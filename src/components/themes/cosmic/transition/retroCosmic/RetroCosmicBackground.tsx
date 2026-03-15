@@ -6,7 +6,13 @@ import { RetroRocket } from './RetroRocket';
 import { RetroStars } from './RetroStars';
 import { retroCosmicTokens } from './retroCosmicTokens';
 
-export const RetroCosmicBackground: React.FC = () => {
+interface RetroCosmicBackgroundProps {
+  isFrozen?: boolean;
+}
+
+export const RetroCosmicBackground: React.FC<RetroCosmicBackgroundProps> = ({
+  isFrozen = false,
+}) => {
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
       <div
@@ -26,14 +32,14 @@ export const RetroCosmicBackground: React.FC = () => {
           background:
             'linear-gradient(115deg, rgba(255, 235, 193, 0.07) 0%, transparent 34%, rgba(132, 190, 204, 0.08) 64%, transparent 100%)',
         }}
-        animate={{ opacity: [0.2, 0.34, 0.2] }}
-        transition={{ duration: 30, repeat: Infinity, ease: 'easeInOut' }}
+        animate={isFrozen ? undefined : { opacity: [0.2, 0.34, 0.2] }}
+        transition={isFrozen ? undefined : { duration: 30, repeat: Infinity, ease: 'easeInOut' }}
       />
 
-      <RetroStars />
-      <RetroPlanet />
-      <RetroOrbits />
-      <RetroRocket />
+      <RetroStars isFrozen={isFrozen} />
+      <RetroPlanet isFrozen={isFrozen} />
+      <RetroOrbits isFrozen={isFrozen} />
+      <RetroRocket isFrozen={isFrozen} />
 
       <div
         className="absolute inset-0"
@@ -44,4 +50,3 @@ export const RetroCosmicBackground: React.FC = () => {
     </div>
   );
 };
-

@@ -39,7 +39,11 @@ const buildOrbitFrames = (
   return { xFrames, yFrames, times };
 };
 
-export const RetroOrbits: React.FC = () => {
+interface RetroOrbitsProps {
+  isFrozen?: boolean;
+}
+
+export const RetroOrbits: React.FC<RetroOrbitsProps> = ({ isFrozen = false }) => {
   const markerFrames = useMemo(
     () =>
       retroCosmicTokens.orbits.markerTracks.map((track) =>
@@ -54,8 +58,8 @@ export const RetroOrbits: React.FC = () => {
       viewBox="0 0 100 100"
       preserveAspectRatio="none"
       aria-hidden="true"
-      animate={{ opacity: [0.52, 0.66, 0.52] }}
-      transition={{ duration: 26, repeat: Infinity, ease: 'easeInOut' }}
+      animate={isFrozen ? undefined : { opacity: [0.52, 0.66, 0.52] }}
+      transition={isFrozen ? undefined : { duration: 26, repeat: Infinity, ease: 'easeInOut' }}
     >
       <defs>
         <linearGradient id="retro-orbit-gradient" x1="10%" y1="20%" x2="85%" y2="80%">
@@ -78,8 +82,8 @@ export const RetroOrbits: React.FC = () => {
             strokeWidth={0.22}
             strokeDasharray={ring.dashed ? '2.1 3.3' : 'none'}
             strokeLinecap="round"
-            animate={ring.dashed ? { strokeDashoffset: [0, -48] } : undefined}
-            transition={ring.dashed ? { duration: 48, repeat: Infinity, ease: 'linear' } : undefined}
+            animate={!isFrozen && ring.dashed ? { strokeDashoffset: [0, -48] } : undefined}
+            transition={!isFrozen && ring.dashed ? { duration: 48, repeat: Infinity, ease: 'linear' } : undefined}
           />
         ))}
 
@@ -93,8 +97,8 @@ export const RetroOrbits: React.FC = () => {
             strokeLinecap="round"
             strokeDasharray={arc.dashArray}
             opacity={arc.opacity}
-            animate={{ strokeDashoffset: [0, -40] }}
-            transition={{ duration: 60 + index * 8, repeat: Infinity, ease: 'linear' }}
+            animate={isFrozen ? undefined : { strokeDashoffset: [0, -40] }}
+            transition={isFrozen ? undefined : { duration: 60 + index * 8, repeat: Infinity, ease: 'linear' }}
           />
         ))}
 
@@ -123,12 +127,13 @@ export const RetroOrbits: React.FC = () => {
               cx: frames.xFrames[0],
               cy: frames.yFrames[0],
             }}
-            animate={{
+            r={track.size}
+            animate={isFrozen ? undefined : {
               cx: frames.xFrames,
               cy: frames.yFrames,
               r: [track.size * 0.92, track.size * 1.08, track.size * 0.92],
             }}
-            transition={{
+            transition={isFrozen ? undefined : {
               cx: {
                 duration: track.duration,
                 repeat: Infinity,
@@ -158,4 +163,3 @@ export const RetroOrbits: React.FC = () => {
     </motion.svg>
   );
 };
-

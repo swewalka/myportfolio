@@ -14,6 +14,7 @@ function HeroContent() {
   const [isDestructiveUnlocked, setIsDestructiveUnlocked] = useState(false);
   const [isWiggling, setIsWiggling] = useState(false);
   const [showHeroCards, setShowHeroCards] = useState(true);
+  const [isThemePerformanceReduced, setIsThemePerformanceReduced] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -68,6 +69,12 @@ function HeroContent() {
   useMotionValueEvent(scrollYProgress, 'change', (latest) => {
     const shouldShowCards = latest < 0.004;
     setShowHeroCards((previous) => (previous === shouldShowCards ? previous : shouldShowCards));
+
+    const shouldReduceThemePerformance =
+      isDestructiveUnlocked && latest >= 0.27 && latest <= 0.62;
+    setIsThemePerformanceReduced((previous) =>
+      previous === shouldReduceThemePerformance ? previous : shouldReduceThemePerformance,
+    );
   });
 
   return (
@@ -76,9 +83,12 @@ function HeroContent() {
         style={{ backgroundColor: bgColor }}
         className="sticky top-0 h-[130vh] w-full overflow-hidden cursor-none"
       >
-        <ThemeTransitionLayer />
+        <ThemeTransitionLayer isPerformanceReduced={isThemePerformanceReduced} />
 
-        <HeroRevealLayer scrollYProgress={scrollYProgress} isUnlocked={isDestructiveUnlocked}>
+        <HeroRevealLayer
+          scrollYProgress={scrollYProgress}
+          isUnlocked={isDestructiveUnlocked}
+        >
           <HeroLandingLayer isUnlocked={isDestructiveUnlocked} isWiggling={isWiggling} />
         </HeroRevealLayer>
 
@@ -86,6 +96,11 @@ function HeroContent() {
           <HeroCards
             isDestructiveUnlocked={isDestructiveUnlocked}
             onUnlockDestructiveMode={() => {
+              document.documentElement.style.overflow = '';
+              document.body.style.overflow = '';
+              document.body.style.touchAction = '';
+              document.body.style.overscrollBehavior = '';
+
               setIsDestructiveUnlocked(true);
               setIsWiggling(true);
               setTimeout(() => setIsWiggling(false), 520);

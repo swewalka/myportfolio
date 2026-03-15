@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import type { ThemeTransitionLayerProps } from '../../core/types';
 
-export const BrutalTransitionLayer: React.FC = () => {
+export const BrutalTransitionLayer: React.FC<ThemeTransitionLayerProps> = () => {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 1.05 }}

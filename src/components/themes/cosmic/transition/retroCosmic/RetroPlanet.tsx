@@ -1,16 +1,20 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-export const RetroPlanet: React.FC = () => {
+interface RetroPlanetProps {
+  isFrozen?: boolean;
+}
+
+export const RetroPlanet: React.FC<RetroPlanetProps> = ({ isFrozen = false }) => {
   return (
     <motion.div
       className="absolute pointer-events-none z-[2] aspect-square w-[92vw] sm:w-[82vw] lg:w-[72vw] max-w-[1080px] left-[31%] sm:left-[41%] lg:left-[50%] top-[-16%] sm:top-[-30%] lg:top-[-42%]"
-      animate={{
+      animate={isFrozen ? undefined : {
         x: [0, 10, 0],
         y: [0, 6, 0],
         rotate: [0, 1.6, 0],
       }}
-      transition={{
+      transition={isFrozen ? undefined : {
         duration: 170,
         repeat: Infinity,
         ease: 'easeInOut',
@@ -39,8 +43,8 @@ export const RetroPlanet: React.FC = () => {
             background:
               'repeating-linear-gradient(12deg, rgba(253, 221, 164, 0.12) 0px, rgba(253, 221, 164, 0.12) 14px, rgba(126, 88, 79, 0.06) 14px, rgba(126, 88, 79, 0.06) 33px)',
           }}
-          animate={{ rotate: [0, 360] }}
-          transition={{ duration: 220, ease: 'linear', repeat: Infinity }}
+          animate={isFrozen ? undefined : { rotate: [0, 360] }}
+          transition={isFrozen ? undefined : { duration: 220, ease: 'linear', repeat: Infinity }}
         />
 
         <div
@@ -62,4 +66,3 @@ export const RetroPlanet: React.FC = () => {
     </motion.div>
   );
 };
-

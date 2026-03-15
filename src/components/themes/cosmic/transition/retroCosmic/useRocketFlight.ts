@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 interface UseRocketFlightOptions {
+  enabled?: boolean;
   trajectoryCount: number;
   minIntervalMs: number;
   maxIntervalMs: number;
@@ -22,6 +23,7 @@ const randomInRange = (min: number, max: number): number => {
 };
 
 export const useRocketFlight = ({
+  enabled = true,
   trajectoryCount,
   minIntervalMs,
   maxIntervalMs,
@@ -39,6 +41,14 @@ export const useRocketFlight = ({
   const flightTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
+    if (!enabled) {
+      setFlightState((previous) => ({
+        ...previous,
+        isInFlight: false,
+      }));
+      return;
+    }
+
     if (trajectoryCount <= 0) {
       return;
     }
@@ -94,8 +104,7 @@ export const useRocketFlight = ({
       cancelled = true;
       clearTimers();
     };
-  }, [maxDurationMs, maxIntervalMs, minDurationMs, minIntervalMs, trajectoryCount]);
+  }, [enabled, maxDurationMs, maxIntervalMs, minDurationMs, minIntervalMs, trajectoryCount]);
 
   return flightState;
 };
-
