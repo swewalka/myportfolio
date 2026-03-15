@@ -1,36 +1,17 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import { useState, useEffect, type ReactNode } from 'react';
 import CursorLayer from './CursorLayer';
-
-export type CursorMode = 'magnetic' | 'liquid' | 'orbital' | 'precision' | 'trail';
-const CURSOR_MODES: CursorMode[] = ['magnetic', 'liquid', 'orbital', 'precision', 'trail'];
-const MODE_LABELS: Record<CursorMode, string> = {
-  magnetic: 'Magnetic',
-  liquid: 'Liquid',
-  orbital: 'Orbital',
-  precision: 'Precision',
-  trail: 'Light Trail'
-};
-
-interface CursorContextType {
-  mode: CursorMode;
-  nextMode: () => void;
-}
-
-const CursorContext = createContext<CursorContextType>({ mode: 'magnetic', nextMode: () => {} });
-
-export const useCursor = () => useContext(CursorContext);
+import { CursorContext, CURSOR_MODES, MODE_LABELS } from './cursorContext';
 
 export default function CursorManager({ children }: { children: ReactNode }) {
   const [modeIndex, setModeIndex] = useState(0);
   const [label, setLabel] = useState<string | null>(null);
-  const [isDesktop, setIsDesktop] = useState(true);
+  const [isDesktop, setIsDesktop] = useState(() => window.matchMedia('(pointer: fine)').matches);
 
   useEffect(() => {
-    const mql = window.matchMedia("(pointer: fine)");
-    setIsDesktop(mql.matches);
+    const mql = window.matchMedia('(pointer: fine)');
     const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
-    mql.addEventListener("change", handler);
-    return () => mql.removeEventListener("change", handler);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
   }, []);
 
   const nextMode = () => {

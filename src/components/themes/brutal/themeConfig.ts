@@ -1,4 +1,4 @@
-import type { ThemeConfig } from '../types';
+import type { ThemeConfig } from '../core/types';
 
 export const brutalTheme: ThemeConfig = {
   id: 'brutal',

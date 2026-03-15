@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-export const BlueprintEffects: React.FC = () => {
+export const BlueprintTransitionLayer: React.FC = () => {
   return (
     <motion.div
       initial={{ opacity: 0 }}

@@ -1,13 +1,13 @@
 import { useEffect, useState, useRef } from 'react';
 import { motion, useSpring, useMotionValue, AnimatePresence } from 'framer-motion';
-import type { CursorMode } from './CursorManager';
+import type { CursorMode } from './cursorContext';
 
 export default function CursorLayer({ mode, label }: { mode: CursorMode; label: string | null }) {
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
   const [isHovering, setIsHovering] = useState(false);
   const [velocity, setVelocity] = useState(0);
-  const lastTime = useRef(performance.now());
+  const lastTime = useRef(0);
   const lastPos = useRef({ x: -100, y: -100 });
 
   const smoothX = useSpring(mouseX, { damping: 25, stiffness: 200, mass: 0.5 });
@@ -18,6 +18,7 @@ export default function CursorLayer({ mode, label }: { mode: CursorMode; label: 
 
   useEffect(() => {
     let animationFrameId: number;
+    lastTime.current = performance.now();
 
     const onMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);

@@ -1,12 +1,12 @@
 import { AnimatePresence, motion } from 'framer-motion';
 
-interface CriticalAmbientLayerProps {
+interface SignatureOverclockAmbientLayerProps {
   active: boolean;
   scanTick: number;
   scanDurationMs: number;
 }
 
-export const CriticalAmbientLayer: React.FC<CriticalAmbientLayerProps> = ({
+export const SignatureOverclockAmbientLayer: React.FC<SignatureOverclockAmbientLayerProps> = ({
   active,
   scanTick,
   scanDurationMs,
@@ -14,10 +14,13 @@ export const CriticalAmbientLayer: React.FC<CriticalAmbientLayerProps> = ({
   if (!active) return null;
 
   return (
-    <div className="critical-ambient-layer absolute inset-0 pointer-events-none z-[21]" aria-hidden="true">
-      <div className="critical-bg-breath critical-bg-breath-primary" />
-      <div className="critical-bg-breath critical-bg-breath-secondary" />
-      <div className="critical-system-flicker" />
+    <div
+      className="signature-overclock-ambient-layer absolute inset-0 pointer-events-none z-[21]"
+      aria-hidden="true"
+    >
+      <div className="signature-overclock-bg-breath signature-overclock-bg-breath-primary" />
+      <div className="signature-overclock-bg-breath signature-overclock-bg-breath-secondary" />
+      <div className="signature-overclock-system-flicker" />
 
       <AnimatePresence mode="popLayout">
         {scanTick > 0 && (
@@ -30,7 +33,7 @@ export const CriticalAmbientLayer: React.FC<CriticalAmbientLayerProps> = ({
               duration: scanDurationMs / 1000,
               ease: [0.25, 0.1, 0.25, 1],
             }}
-            className="critical-diagnostic-scan"
+            className="signature-overclock-diagnostic-scan"
           />
         )}
       </AnimatePresence>

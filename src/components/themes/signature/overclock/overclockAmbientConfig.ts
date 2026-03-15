@@ -1,8 +1,8 @@
-export type AmbientIntensity = 'calm' | 'warning' | 'critical';
+export type OverclockAmbientIntensity = 'calm' | 'warning' | 'critical';
 
 type Range = [number, number];
 
-export interface AmbientProfile {
+export interface OverclockAmbientProfile {
   basePulseSeconds: Range;
   flickerGapMs: Range;
   flickerDurationMs: Range;
@@ -12,7 +12,10 @@ export interface AmbientProfile {
   scanDurationMs: number;
 }
 
-export const AMBIENT_PROFILES: Record<AmbientIntensity, AmbientProfile> = {
+export const OVERCLOCK_AMBIENT_PROFILES: Record<
+  OverclockAmbientIntensity,
+  OverclockAmbientProfile
+> = {
   calm: {
     basePulseSeconds: [5.4, 7.2],
     flickerGapMs: [13000, 22000],
@@ -42,6 +45,6 @@ export const AMBIENT_PROFILES: Record<AmbientIntensity, AmbientProfile> = {
   },
 };
 
-export function randomBetween([min, max]: Range) {
+export function randomBetweenRange([min, max]: Range) {
   return min + Math.random() * (max - min);
 }

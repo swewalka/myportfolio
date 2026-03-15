@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react';
-import { AMBIENT_PROFILES, type AmbientIntensity, randomBetween } from './criticalAmbientConfig';
+import {
+  OVERCLOCK_AMBIENT_PROFILES,
+  type OverclockAmbientIntensity,
+  randomBetweenRange,
+} from './overclockAmbientConfig';
 
-export function useIrregularFlicker(
+export function useOverclockIrregularFlicker(
   active: boolean,
-  intensity: AmbientIntensity = 'critical',
+  intensity: OverclockAmbientIntensity = 'critical',
   reducedMotion = false,
 ) {
   const [flicker, setFlicker] = useState(0);
@@ -11,16 +15,16 @@ export function useIrregularFlicker(
   useEffect(() => {
     if (!active) return;
 
-    const profile = AMBIENT_PROFILES[intensity];
+    const profile = OVERCLOCK_AMBIENT_PROFILES[intensity];
     const timers: number[] = [];
     let cancelled = false;
 
     const schedule = () => {
       if (cancelled) return;
-      const delay = randomBetween(profile.flickerGapMs) * (reducedMotion ? 1.8 : 1);
+      const delay = randomBetweenRange(profile.flickerGapMs) * (reducedMotion ? 1.8 : 1);
       const timeout = window.setTimeout(() => {
         if (cancelled) return;
-        const spikeStrength = reducedMotion ? 0.12 : randomBetween([0.12, 0.32]);
+        const spikeStrength = reducedMotion ? 0.12 : randomBetweenRange([0.12, 0.32]);
         const burstCount = Math.random() > 0.7 && !reducedMotion ? 2 : 1;
 
         for (let index = 0; index < burstCount; index += 1) {
@@ -31,7 +35,7 @@ export function useIrregularFlicker(
 
           const off = window.setTimeout(() => {
             setFlicker(0);
-          }, startDelay + randomBetween(profile.flickerDurationMs));
+          }, startDelay + randomBetweenRange(profile.flickerDurationMs));
 
           timers.push(on, off);
         }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { RetroCosmicTheme } from './retroCosmic/RetroCosmicTheme';
 
-export const CosmicEffects: React.FC = () => {
+export const CosmicTransitionLayer: React.FC = () => {
   return <RetroCosmicTheme />;
 };

@@ -1,5 +1,8 @@
 import { useMemo } from 'react';
-import { AMBIENT_PROFILES, type AmbientIntensity } from './criticalAmbientConfig';
+import {
+  OVERCLOCK_AMBIENT_PROFILES,
+  type OverclockAmbientIntensity,
+} from './overclockAmbientConfig';
 
 export interface AlarmPulseState {
   primaryCycle: number;
@@ -8,9 +11,9 @@ export interface AlarmPulseState {
   phaseOffset: number;
 }
 
-export function useAlarmPulse(
+export function useOverclockAlarmPulse(
   active: boolean,
-  intensity: AmbientIntensity = 'critical',
+  intensity: OverclockAmbientIntensity = 'critical',
   reducedMotion = false,
 ): AlarmPulseState {
   return useMemo(() => {
@@ -23,7 +26,7 @@ export function useAlarmPulse(
       };
     }
 
-    const profile = AMBIENT_PROFILES[intensity];
+    const profile = OVERCLOCK_AMBIENT_PROFILES[intensity];
     const baseCycle = ((profile.basePulseSeconds[0] + profile.basePulseSeconds[1]) / 2) * (reducedMotion ? 1.45 : 1);
 
     return {

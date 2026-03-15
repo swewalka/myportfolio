@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react';
-import { AMBIENT_PROFILES, type AmbientIntensity, randomBetween } from './criticalAmbientConfig';
+import {
+  OVERCLOCK_AMBIENT_PROFILES,
+  type OverclockAmbientIntensity,
+  randomBetweenRange,
+} from './overclockAmbientConfig';
 
-export function useGlowBreathing(
+export function useOverclockGlowBreathing(
   active: boolean,
-  intensity: AmbientIntensity = 'critical',
+  intensity: OverclockAmbientIntensity = 'critical',
   reducedMotion = false,
 ) {
   const [bloom, setBloom] = useState(0);
@@ -12,13 +16,13 @@ export function useGlowBreathing(
   useEffect(() => {
     if (!active) return;
 
-    const profile = AMBIENT_PROFILES[intensity];
+    const profile = OVERCLOCK_AMBIENT_PROFILES[intensity];
     const timers: number[] = [];
     let cancelled = false;
 
     const schedule = () => {
       if (cancelled) return;
-      const delay = randomBetween(profile.bloomGapMs) * (reducedMotion ? 1.7 : 1);
+      const delay = randomBetweenRange(profile.bloomGapMs) * (reducedMotion ? 1.7 : 1);
       const timeout = window.setTimeout(() => {
         if (cancelled) return;
         setBloom(reducedMotion ? 0.25 : 1);

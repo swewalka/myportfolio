@@ -1,10 +1,10 @@
-import type { ThemeConfig } from '../types';
+import type { ThemeConfig } from '../core/types';
 
-export const defaultTheme: ThemeConfig = {
-  id: 'default',
-  label: 'Core Mode',
+export const signatureTheme: ThemeConfig = {
+  id: 'signature',
+  label: 'Signature Mode',
   content: {
-    heroTagline: 'Engineered.',
+    heroTagline: 'Supercharged.',
   },
   tokens: {
     colors: {

@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react';
-import { AMBIENT_PROFILES, type AmbientIntensity, randomBetween } from './criticalAmbientConfig';
+import {
+  OVERCLOCK_AMBIENT_PROFILES,
+  type OverclockAmbientIntensity,
+  randomBetweenRange,
+} from './overclockAmbientConfig';
 
-export function useSurfaceStress(
+export function useOverclockSurfaceStress(
   active: boolean,
-  intensity: AmbientIntensity = 'critical',
+  intensity: OverclockAmbientIntensity = 'critical',
   reducedMotion = false,
 ) {
   const [scanTick, setScanTick] = useState(0);
@@ -12,17 +16,17 @@ export function useSurfaceStress(
   useEffect(() => {
     if (!active) return;
 
-    const profile = AMBIENT_PROFILES[intensity];
+    const profile = OVERCLOCK_AMBIENT_PROFILES[intensity];
     const timers: number[] = [];
     let cancelled = false;
 
     const scheduleScan = () => {
       if (cancelled) return;
-      const delay = randomBetween(profile.scanGapMs) * (reducedMotion ? 2 : 1);
+      const delay = randomBetweenRange(profile.scanGapMs) * (reducedMotion ? 2 : 1);
       const timeout = window.setTimeout(() => {
         if (cancelled) return;
         setScanTick((value) => value + 1);
-        setCardStress(reducedMotion ? 0.2 : randomBetween([0.22, 0.48]));
+        setCardStress(reducedMotion ? 0.2 : randomBetweenRange([0.22, 0.48]));
         const settle = window.setTimeout(() => setCardStress(0), profile.scanDurationMs * 0.7);
         const repeat = window.setTimeout(scheduleScan, profile.scanDurationMs * 0.4);
         timers.push(settle, repeat);

@@ -1,36 +1,20 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useState } from 'react';
 import type { ReactNode } from 'react';
-import type { ThemeId, ThemeConfig } from './types';
-import { themeRotation, getThemeConfig } from './themeRegistry';
-
-interface ThemeContextType {
-  activeThemeId: ThemeId;
-  isDefaultTheme: boolean;
-  isTransitioningTheme: boolean;
-  activeThemeConfig: ThemeConfig;
-  cycleTheme: () => void;
-}
-
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
-
-export const useTheme = () => {
-  const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
-  return context;
-};
+import type { ThemeId } from './core/types';
+import { STARTER_THEME_ID, themeRotation, getThemeModule } from './core/themeRegistry';
+import { ThemeContext } from './themeContext';
 
 interface ThemeProviderProps {
   children: ReactNode;
 }
 
-export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const [activeThemeId, setActiveThemeId] = useState<ThemeId>('default');
+export default function ThemeProvider({ children }: ThemeProviderProps) {
+  const [activeThemeId, setActiveThemeId] = useState<ThemeId>(STARTER_THEME_ID);
   const [isTransitioningTheme, setIsTransitioningTheme] = useState(false);
 
-  const activeThemeConfig = getThemeConfig(activeThemeId);
-  const isDefaultTheme = activeThemeId === 'default';
+  const activeThemeModule = getThemeModule(activeThemeId);
+  const activeThemeConfig = activeThemeModule.config;
+  const isStarterTheme = activeThemeId === STARTER_THEME_ID;
 
   const cycleTheme = () => {
     setIsTransitioningTheme(true);
@@ -47,27 +31,16 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     }, 50); // Small gap so classes update and transition finishes
   };
 
-  // Apply CSS variables dynamically to a root element or body based on active config
-  useEffect(() => {
-    if (isDefaultTheme) {
-      // Remove any previously set custom inline style tokens on the root wrapper if needed, 
-      // but we'll primarily rely on Framer Motion passing them to our container directly.
-      return;
-    }
-
-    // Optional: We can write a script to inject tokens as '--var' directly to document body or handle it via Component inline styles + Framer Motion. 
-    // We will utilize Framer Motion inline style interpolation on a <ThemeTransitionLayer />
-  }, [isDefaultTheme, activeThemeConfig]);
-
   return (
     <ThemeContext.Provider value={{
       activeThemeId,
-      isDefaultTheme,
+      isStarterTheme,
       isTransitioningTheme,
       activeThemeConfig,
+      activeThemeModule,
       cycleTheme,
     }}>
       {children}
     </ThemeContext.Provider>
   );
-};
+}
