@@ -5,6 +5,7 @@ import { useTheme } from '../themes/ThemeManager';
 export const ThemeCardLeft: React.FC = () => {
   const { 
     activeThemeConfig, 
+    isDefaultTheme,
     hasActivatedLiquidAmbient, 
     cycleTheme, 
     isTransitioningTheme 
@@ -16,7 +17,7 @@ export const ThemeCardLeft: React.FC = () => {
   let glowClass = 'bg-white/5 opacity-0 group-hover:opacity-100';
   let ringClass = '';
 
-  if (activeThemeConfig) {
+  if (!isDefaultTheme) {
     bgClass = ''; // Inline styles take over
     titleClass = '';
     descClass = '';
@@ -28,16 +29,16 @@ export const ThemeCardLeft: React.FC = () => {
     glowClass = 'bg-white/20 opacity-0 group-hover:opacity-100';
   }
 
-  const hoverScale = activeThemeConfig ? activeThemeConfig.tokens.motion.hoverScale : 1.02;
-  const tapScale = activeThemeConfig ? activeThemeConfig.tokens.motion.tapScale : 0.95;
-  const borderRadius = activeThemeConfig ? activeThemeConfig.tokens.layout.radius : '2.5rem';
-  const borderWidth = activeThemeConfig ? activeThemeConfig.tokens.layout.borderWidth : '1px';
-  const transitionDuration = activeThemeConfig ? activeThemeConfig.tokens.motion.transitionDuration : 1;
-  const cardShadow = activeThemeConfig ? activeThemeConfig.tokens.colors.cardDropShadow : undefined;
-  const padding = activeThemeConfig ? activeThemeConfig.tokens.layout.cardPadding : '3rem';
+  const hoverScale = !isDefaultTheme ? activeThemeConfig.tokens.motion.hoverScale : 1.02;
+  const tapScale = !isDefaultTheme ? activeThemeConfig.tokens.motion.tapScale : 0.95;
+  const borderRadius = !isDefaultTheme ? activeThemeConfig.tokens.layout.radius : '2.5rem';
+  const borderWidth = !isDefaultTheme ? activeThemeConfig.tokens.layout.borderWidth : '1px';
+  const transitionDuration = !isDefaultTheme ? activeThemeConfig.tokens.motion.transitionDuration : 1;
+  const cardShadow = !isDefaultTheme ? activeThemeConfig.tokens.colors.cardDropShadow : undefined;
+  const padding = !isDefaultTheme ? activeThemeConfig.tokens.layout.cardPadding : '3rem';
 
-  const title = activeThemeConfig ? activeThemeConfig.label : "Theme Engine.";
-  const desc = activeThemeConfig 
+  const title = !isDefaultTheme ? activeThemeConfig.label : "Theme Engine.";
+  const desc = !isDefaultTheme 
     ? "Cycle immersive visual layers."
     : (hasActivatedLiquidAmbient ? "Ambient glass initialized. Click to cycle." : "Manual aesthetic override. Awaiting input.");
 
@@ -54,10 +55,10 @@ export const ThemeCardLeft: React.FC = () => {
         borderWidth: borderWidth,
         padding: padding,
         transitionDuration: `${transitionDuration}s`,
-        backgroundColor: activeThemeConfig?.tokens.colors.surface,
+        backgroundColor: !isDefaultTheme ? activeThemeConfig.tokens.colors.surface : undefined,
         borderColor: isTransitioningTheme 
-          ? activeThemeConfig?.tokens.colors.accent 
-          : activeThemeConfig?.tokens.colors.border,
+          ? (!isDefaultTheme ? activeThemeConfig.tokens.colors.accent : undefined)
+          : (!isDefaultTheme ? activeThemeConfig.tokens.colors.border : undefined),
         boxShadow: cardShadow,
       }}
     >
@@ -65,7 +66,7 @@ export const ThemeCardLeft: React.FC = () => {
       <div 
         className={`absolute top-0 right-0 w-64 h-64 rounded-full blur-[80px] -mr-32 -mt-32 transition-all duration-1000 ${glowClass}`} 
         style={{
-          backgroundColor: activeThemeConfig?.tokens.colors.cardRingHover || undefined
+          backgroundColor: !isDefaultTheme ? activeThemeConfig.tokens.colors.cardRingHover : undefined
         }}
       />
       
@@ -81,11 +82,11 @@ export const ThemeCardLeft: React.FC = () => {
           <h3 
             className={`text-4xl font-semibold tracking-tight mb-4 transition-colors duration-1000 ${titleClass}`}
             style={{
-              color: activeThemeConfig?.tokens.colors.textPrimary,
-              textShadow: activeThemeConfig?.tokens.colors.textDropShadow,
-              fontFamily: activeThemeConfig?.tokens.typography.fontFamily,
-              fontWeight: activeThemeConfig?.tokens.typography.titleWeight,
-              letterSpacing: activeThemeConfig?.tokens.typography.baseTracking,
+              color: !isDefaultTheme ? activeThemeConfig.tokens.colors.textPrimary : undefined,
+              textShadow: !isDefaultTheme ? activeThemeConfig.tokens.colors.textDropShadow : undefined,
+              fontFamily: !isDefaultTheme ? activeThemeConfig.tokens.typography.fontFamily : undefined,
+              fontWeight: !isDefaultTheme ? activeThemeConfig.tokens.typography.titleWeight : undefined,
+              letterSpacing: !isDefaultTheme ? activeThemeConfig.tokens.typography.baseTracking : undefined,
             }}
           >
             {title}
@@ -93,8 +94,8 @@ export const ThemeCardLeft: React.FC = () => {
           <p 
             className={`text-xl font-medium leading-tight max-w-sm transition-colors duration-1000 ${descClass}`}
             style={{
-              color: activeThemeConfig?.tokens.colors.textSecondary,
-              fontFamily: activeThemeConfig?.tokens.typography.fontFamily,
+              color: !isDefaultTheme ? activeThemeConfig.tokens.colors.textSecondary : undefined,
+              fontFamily: !isDefaultTheme ? activeThemeConfig.tokens.typography.fontFamily : undefined,
             }}
           >
             {desc}
@@ -103,7 +104,7 @@ export const ThemeCardLeft: React.FC = () => {
       </AnimatePresence>
       
       {/* Mini Active Indicator Outline on Transition */}
-      {isTransitioningTheme && activeThemeConfig && (
+      {isTransitioningTheme && !isDefaultTheme && (
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}

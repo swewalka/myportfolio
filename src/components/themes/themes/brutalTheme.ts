@@ -3,6 +3,9 @@ import type { ThemeConfig } from '../types';
 export const brutalTheme: ThemeConfig = {
   id: 'brutal',
   label: 'Brutal Mode',
+  content: {
+    heroTagline: 'Raw.',
+  },
   tokens: {
     colors: {
       background: '#e0e0e0', // Harsh light gray/white or #000 depending on preference. Going with stark light-grey to contrast everything else.
