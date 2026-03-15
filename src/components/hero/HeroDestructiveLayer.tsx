@@ -14,7 +14,6 @@ interface HeroDestructiveLayerProps {
   isUnlocked: boolean;
   isWiggling: boolean;
   isDefaultTheme: boolean;
-  hasActivatedLiquidAmbient: boolean;
   activeThemeConfig: ThemeConfig;
   children?: ReactNode;
 }
@@ -24,7 +23,6 @@ export const HeroDestructiveLayer: React.FC<HeroDestructiveLayerProps> = ({
   isUnlocked,
   isWiggling,
   isDefaultTheme,
-  hasActivatedLiquidAmbient,
   activeThemeConfig,
   children,
 }) => {
@@ -98,6 +96,12 @@ export const HeroDestructiveLayer: React.FC<HeroDestructiveLayerProps> = ({
         animate={{ opacity: isWiggling ? [0, 0.54, 0.14, 0.42, 0] : 0 }}
         transition={{ duration: 0.46, ease: 'linear' }}
         className="absolute inset-0 bg-red-700 mix-blend-color-dodge z-30 pointer-events-none"
+      />
+      <motion.div
+        initial={{ opacity: 0.38 }}
+        animate={{ opacity: 0 }}
+        transition={{ duration: 1.8, ease: 'easeOut' }}
+        className="absolute inset-0 bg-black z-[28] pointer-events-none"
       />
 
       <svg className="absolute w-0 h-0" style={{ display: 'none' }}>
@@ -184,9 +188,7 @@ export const HeroDestructiveLayer: React.FC<HeroDestructiveLayerProps> = ({
                 ? ''
                 : isUnlocked
                   ? 'bg-[#0a0000] border-[#ff003c]/50 shadow-[0_0_30px_rgba(255,0,60,0.6)] critical-flicker-target critical-badge-pulse'
-                  : hasActivatedLiquidAmbient
-                    ? 'bg-white/10 border-white/30 backdrop-blur-xl shadow-[0_4px_16px_rgba(255,255,255,0.1)]'
-                    : 'bg-[#1d1d1f]/80 border-white/10 backdrop-blur-xl shadow-black/50'
+                  : 'bg-white/10 border-white/30 backdrop-blur-xl shadow-[0_4px_16px_rgba(255,255,255,0.1)]'
             }`}
             style={{
               backgroundColor: !isDefaultTheme ? activeThemeConfig.tokens.colors.surface : undefined,
@@ -199,9 +201,7 @@ export const HeroDestructiveLayer: React.FC<HeroDestructiveLayerProps> = ({
                   ? ''
                   : isUnlocked
                     ? 'text-[#ff003c] drop-shadow-[0_0_10px_rgba(255,0,60,0.9)] critical-flicker-target'
-                    : hasActivatedLiquidAmbient
-                      ? 'text-white/90 drop-shadow-md'
-                      : 'text-[#a1a1a6]'
+                    : 'text-white/90 drop-shadow-md'
               }`}
               style={{
                 color: !isDefaultTheme ? activeThemeConfig.tokens.colors.textSecondary : undefined,
@@ -221,9 +221,7 @@ export const HeroDestructiveLayer: React.FC<HeroDestructiveLayerProps> = ({
                 ? ''
                 : isUnlocked
                   ? 'text-transparent bg-clip-text bg-gradient-to-b from-[#ff003c] via-[#ff4a4a] to-[#5a0014] drop-shadow-[0_0_40px_rgba(255,0,60,0.6)] scale-[1.02] critical-flicker-target'
-                  : hasActivatedLiquidAmbient
-                    ? 'text-transparent bg-clip-text bg-gradient-to-b from-white via-white/90 to-white/30 drop-shadow-[0_0_30px_rgba(255,255,255,0.4)]'
-                    : 'text-[#f5f5f7]'
+                  : 'text-transparent bg-clip-text bg-gradient-to-b from-white via-white/90 to-white/30 drop-shadow-[0_0_30px_rgba(255,255,255,0.4)]'
             }`}
             style={!isDefaultTheme ? {
               color: activeThemeConfig.tokens.colors.textPrimary,
@@ -240,9 +238,7 @@ export const HeroDestructiveLayer: React.FC<HeroDestructiveLayerProps> = ({
               <span className={`transition-all duration-1000 ${
                 isUnlocked
                   ? 'text-transparent bg-clip-text bg-gradient-to-b from-[#ff003c] via-[#ff6b6b] to-[#8a0020] drop-shadow-[0_0_25px_rgba(255,0,60,0.8)] critical-hero-tagline'
-                  : hasActivatedLiquidAmbient
-                    ? 'text-transparent bg-clip-text bg-gradient-to-b from-white via-white/80 to-white/10 drop-shadow-[0_0_15px_rgba(255,255,255,0.6)]'
-                    : 'text-transparent bg-clip-text bg-gradient-to-b from-white via-[#d2d2d7] to-[#86868b]'
+                  : 'text-transparent bg-clip-text bg-gradient-to-b from-white via-white/80 to-white/10 drop-shadow-[0_0_15px_rgba(255,255,255,0.6)]'
               }`}>
                 Supercharged.
               </span>
@@ -258,9 +254,7 @@ export const HeroDestructiveLayer: React.FC<HeroDestructiveLayerProps> = ({
                 ? ''
                 : isUnlocked
                   ? 'text-[#ffb3b3] drop-shadow-[0_0_15px_rgba(255,0,60,0.5)]'
-                  : hasActivatedLiquidAmbient
-                    ? 'text-white/90 drop-shadow-md'
-                    : 'text-[#a1a1a6]'
+                  : 'text-white/90 drop-shadow-md'
             }`}
             style={{
               color: !isDefaultTheme ? activeThemeConfig.tokens.colors.textSecondary : undefined,

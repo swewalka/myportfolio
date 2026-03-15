@@ -6,11 +6,9 @@ import { themeRotation, getThemeConfig } from './themeRegistry';
 interface ThemeContextType {
   activeThemeId: ThemeId;
   isDefaultTheme: boolean;
-  hasActivatedLiquidAmbient: boolean;
   isTransitioningTheme: boolean;
   activeThemeConfig: ThemeConfig;
   cycleTheme: () => void;
-  activateLiquidAmbient: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -29,7 +27,6 @@ interface ThemeProviderProps {
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [activeThemeId, setActiveThemeId] = useState<ThemeId>('default');
-  const [hasActivatedLiquidAmbient, setHasActivatedLiquidAmbient] = useState(false);
   const [isTransitioningTheme, setIsTransitioningTheme] = useState(false);
 
   const activeThemeConfig = getThemeConfig(activeThemeId);
@@ -50,12 +47,6 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     }, 50); // Small gap so classes update and transition finishes
   };
 
-  const activateLiquidAmbient = () => {
-    if (!hasActivatedLiquidAmbient) {
-      setHasActivatedLiquidAmbient(true);
-    }
-  };
-
   // Apply CSS variables dynamically to a root element or body based on active config
   useEffect(() => {
     if (isDefaultTheme) {
@@ -72,11 +63,9 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     <ThemeContext.Provider value={{
       activeThemeId,
       isDefaultTheme,
-      hasActivatedLiquidAmbient,
       isTransitioningTheme,
       activeThemeConfig,
       cycleTheme,
-      activateLiquidAmbient
     }}>
       {children}
     </ThemeContext.Provider>

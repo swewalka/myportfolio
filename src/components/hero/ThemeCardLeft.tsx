@@ -6,15 +6,14 @@ export const ThemeCardLeft: React.FC<{ isOverclocked?: boolean }> = ({ isOverclo
   const { 
     activeThemeConfig, 
     isDefaultTheme,
-    hasActivatedLiquidAmbient, 
     cycleTheme, 
     isTransitioningTheme 
   } = useTheme();
 
-  let bgClass = 'bg-[#1d1d1f] border-white/5 hover:bg-[#252528]';
-  let titleClass = 'text-[#f5f5f7]';
-  let descClass = 'text-[#a1a1a6]';
-  let glowClass = 'bg-white/5 opacity-0 group-hover:opacity-100';
+  let bgClass = 'bg-white/10 backdrop-blur-3xl border-white/40 shadow-[0_8px_32px_0_rgba(255,255,255,0.15)] ring-1 ring-white/20 hover:bg-white/20';
+  let titleClass = 'text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]';
+  let descClass = 'text-white/80';
+  let glowClass = 'bg-white/20 opacity-0 group-hover:opacity-100';
   const ringClass = '';
 
   if (!isDefaultTheme) {
@@ -27,11 +26,6 @@ export const ThemeCardLeft: React.FC<{ isOverclocked?: boolean }> = ({ isOverclo
     titleClass = 'text-[#ff4a4a] drop-shadow-[0_0_12px_rgba(255,0,60,0.7)]';
     descClass = 'text-[#ffb3b3]/80';
     glowClass = 'bg-red-700/20 opacity-0 group-hover:opacity-100';
-  } else if (hasActivatedLiquidAmbient) {
-    bgClass = 'bg-white/10 backdrop-blur-3xl border-white/40 shadow-[0_8px_32px_0_rgba(255,255,255,0.15)] ring-1 ring-white/20 hover:bg-white/20';
-    titleClass = 'text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]';
-    descClass = 'text-white/80';
-    glowClass = 'bg-white/20 opacity-0 group-hover:opacity-100';
   }
 
   const hoverScale = !isDefaultTheme ? activeThemeConfig.tokens.motion.hoverScale : 1.02;
@@ -47,7 +41,7 @@ export const ThemeCardLeft: React.FC<{ isOverclocked?: boolean }> = ({ isOverclo
     ? "Cycle immersive visual layers."
     : isOverclocked
       ? "Overload sequence initiated. System destabilized."
-      : (hasActivatedLiquidAmbient ? "Ambient glass initialized. Click to cycle." : "Manual aesthetic override. Awaiting input.");
+      : "Ambient glass initialized. Click to cycle.";
 
   return (
     <motion.div 

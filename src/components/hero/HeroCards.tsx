@@ -1,13 +1,11 @@
 import React from 'react';
-import { motion, AnimatePresence, type MotionValue } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { ThemeCardLeft } from './ThemeCardLeft';
 import { ThemeCardRight } from './ThemeCardRight';
 import { useTheme } from '../themes/ThemeManager';
 
 interface HeroCardsProps {
-  opacity: MotionValue<number>;
-  y: MotionValue<number>;
   isDestructiveUnlocked: boolean;
   onUnlockDestructiveMode: () => void;
 }
@@ -15,7 +13,6 @@ interface HeroCardsProps {
 function getButtonStyle(
   themeId: string,
   isDefaultTheme: boolean,
-  hasActivatedLiquidAmbient: boolean,
   isUnlocked: boolean,
   accent: string,
   textPrimary: string,
@@ -37,20 +34,7 @@ function getButtonStyle(
     };
   }
 
-  if (isDefaultTheme && !hasActivatedLiquidAmbient) {
-    return {
-      className: 'relative overflow-hidden z-20 px-8 py-4 rounded-full font-medium tracking-wide flex items-center gap-2 pointer-events-auto cursor-pointer bg-white text-black',
-      style: {},
-      shimmerColor: 'via-white/50',
-      shadowPulse: [
-        '0 0 0 0 rgba(255,255,255,0.1)',
-        '0 4px 24px 0 rgba(255,255,255,0.2)',
-        '0 0 0 0 rgba(255,255,255,0.1)',
-      ],
-    };
-  }
-
-  if (isDefaultTheme && hasActivatedLiquidAmbient) {
+  if (isDefaultTheme) {
     // Liquid glass style
     return {
       className: 'relative overflow-hidden z-20 px-8 py-4 rounded-full font-medium tracking-wide flex items-center gap-2 pointer-events-auto cursor-pointer border border-white/30 bg-white/15 backdrop-blur-xl text-white',
@@ -139,19 +123,16 @@ function getButtonStyle(
 }
 
 export const HeroCards: React.FC<HeroCardsProps> = ({
-  opacity,
-  y,
   isDestructiveUnlocked,
   onUnlockDestructiveMode,
 }) => {
-  const { activeThemeId, isDefaultTheme, hasActivatedLiquidAmbient, activeThemeConfig } = useTheme();
+  const { activeThemeId, isDefaultTheme, activeThemeConfig } = useTheme();
   const { accent, textPrimary, border } = activeThemeConfig.tokens.colors;
   const { radius, borderWidth } = activeThemeConfig.tokens.layout;
 
   const btnStyle = getButtonStyle(
     activeThemeId,
     isDefaultTheme,
-    hasActivatedLiquidAmbient,
     isDestructiveUnlocked,
     accent,
     textPrimary,
@@ -198,7 +179,9 @@ export const HeroCards: React.FC<HeroCardsProps> = ({
 
   return (
     <motion.div
-      style={{ opacity, y }}
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.1, delay: 0.35, ease: 'easeOut' }}
       className="absolute top-[85vh] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-6xl px-6 sm:px-12 md:px-24 grid grid-cols-1 md:grid-cols-2 gap-8"
     >
       <ThemeCardLeft isOverclocked={isDestructiveUnlocked} />
