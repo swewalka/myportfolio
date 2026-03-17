@@ -6,6 +6,11 @@ import {
   type MotionValue,
 } from 'framer-motion';
 import type { ReactNode } from 'react';
+import {
+  isCompatFeatureSupported,
+  shouldApplyCompatWorkaround,
+  type CompatFeature,
+} from '../../lib/browserCompat';
 import { useTheme } from '../themes/themeContext';
 
 interface HeroRevealLayerProps {
@@ -19,6 +24,15 @@ export const HeroRevealLayer: React.FC<HeroRevealLayerProps> = ({
   isUnlocked,
   children,
 }) => {
+  const meltFilterCompatFeature: CompatFeature = 'heroRevealHtmlSvgFilterReference';
+  const isMeltFilterSupported = isCompatFeatureSupported(meltFilterCompatFeature);
+  const shouldApplyMeltFilterWorkaround = shouldApplyCompatWorkaround(meltFilterCompatFeature);
+  const meltFilterId = 'hero-melt';
+  const meltFilterReference =
+    shouldApplyMeltFilterWorkaround && typeof window !== 'undefined'
+      ? `url(${window.location.href.split('#')[0]}#${meltFilterId})`
+      : `url(#${meltFilterId})`;
+
   const { activeThemeConfig, isStarterTheme } = useTheme();
 
   const displacementRef = useRef<SVGFEDisplacementMapElement>(null);
@@ -89,9 +103,14 @@ export const HeroRevealLayer: React.FC<HeroRevealLayerProps> = ({
         className="absolute inset-0 z-[15] pointer-events-none transition-colors duration-700"
       />
 
-      <svg className="absolute w-0 h-0" style={{ display: 'none' }}>
+      <svg
+        aria-hidden="true"
+        focusable="false"
+        className="absolute w-0 h-0 overflow-hidden pointer-events-none"
+        style={{ visibility: 'hidden' }}
+      >
         <defs>
-          <filter id="hero-melt" x="-50%" y="-50%" width="200%" height="200%">
+          <filter id={meltFilterId} x="-50%" y="-50%" width="200%" height="200%">
             <feTurbulence
               ref={turbulenceRef}
               type="fractalNoise"
@@ -148,7 +167,7 @@ export const HeroRevealLayer: React.FC<HeroRevealLayerProps> = ({
           opacity: aiOpacity,
           scaleY: stretchY,
           y: stretchYOffset,
-          filter: 'url(#hero-melt)',
+          filter: isMeltFilterSupported ? meltFilterReference : 'none',
         }}
         className="absolute inset-0 z-20 pointer-events-none"
       >

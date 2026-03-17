@@ -1,5 +1,5 @@
 import Hero from './components/hero/Hero';
-import RealPortfolio from './components/RealPortfolio';
+import RealPortfolio from './components/realPortfolio/RealPortfolio';
 
 function App() {
   return (

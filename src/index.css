@@ -18,13 +18,3 @@ body {
   background-color: #030712;
   color: #f8fafc;
 }
-
-.fake-portfolio {
-  font-family: var(--font-inter);
-}
-
-.real-portfolio {
-  font-family: var(--font-casual);
-  background-color: #fcfcfc;
-  color: #1a1a1a;
-}
