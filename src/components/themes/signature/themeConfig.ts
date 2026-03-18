@@ -2,9 +2,9 @@ import type { ThemeConfig } from '../core/types';
 
 export const signatureTheme: ThemeConfig = {
   id: 'signature',
-  label: 'Signature Mode',
+  label: 'Signature',
   content: {
-    heroTagline: 'Supercharged.',
+    landingTagline: 'Focused.',
   },
   tokens: {
     colors: {

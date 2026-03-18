@@ -4,7 +4,7 @@ export const blueprintTheme: ThemeConfig = {
   id: 'blueprint',
   label: 'Engineering Draft',
   content: {
-    heroTagline: 'Drafted.',
+    landingTagline: 'Drafting.',
   },
   tokens: {
     colors: {

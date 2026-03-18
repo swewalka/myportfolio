@@ -2,9 +2,9 @@ import type { ThemeConfig } from '../core/types';
 
 export const cosmicTheme: ThemeConfig = {
   id: 'cosmic',
-  label: 'Retro Cosmic Mode',
+  label: 'Retro Cosmic',
   content: {
-    heroTagline: 'Expedition.',
+    landingTagline: 'Exploring.',
   },
   tokens: {
     colors: {

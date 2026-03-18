@@ -3,7 +3,6 @@ import type { ThemeConfig, ThemeId, ThemeModule } from './core/types';
 
 export interface ThemeContextType {
   activeThemeId: ThemeId;
-  isStarterTheme: boolean;
   isTransitioningTheme: boolean;
   activeThemeConfig: ThemeConfig;
   activeThemeModule: ThemeModule;

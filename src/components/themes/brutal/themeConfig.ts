@@ -2,9 +2,9 @@ import type { ThemeConfig } from '../core/types';
 
 export const brutalTheme: ThemeConfig = {
   id: 'brutal',
-  label: 'Brutal Mode',
+  label: 'Brutal',
   content: {
-    heroTagline: 'Raw.',
+    landingTagline: 'Direct.',
   },
   tokens: {
     colors: {

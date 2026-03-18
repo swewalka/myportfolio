@@ -1,17 +1,21 @@
-# AI Portfolio (With A Reveal)
+# Portfolio Site (Unified Landing + Home)
 
-This is my portfolio, but with a twist:
+This project is a single, cohesive portfolio experience.
 
-- **The top section** is a deliberately over-the-top, AI-crafted “showpiece” (themes, cursor modes, heavy motion).
-- **Then it breaks character** and admits the truth: this part is AI-coded, and I’m not a web developer.
-- **Below that** is the real me: a mechanical engineer who likes building things, plus the actual projects and links.
+Flow:
+
+1. Landing section
+2. Short scroll-driven text melt transition
+3. Main homepage content (about, projects, context, contact)
+
+There is no fake intro vs real portfolio split anymore.
 
 ## Stack
 
 - React + TypeScript (Vite)
 - Tailwind CSS
-- Framer Motion (animations)
-- Lucide (icons)
+- Framer Motion
+- Lucide React
 
 ## Run Locally
 
@@ -30,23 +34,66 @@ npm run preview
 npm run lint
 ```
 
-## Where To Edit Things
+## Project Structure
 
-- AI intro section (themes, cursor, “overclock” button): `src/components/hero/`
-- The reveal / “this was AI” transition copy: `src/components/hero/HeroRevealLayer.tsx`
-- Theme-specific overclock effects (signature theme): `src/components/themes/signature/overclock/`
-- Bio, real projects + contact links: `src/components/RealPortfolio.tsx`
-- Theme definitions / modules / rotation: `src/components/themes/`
-- Global styling: `src/index.css`
+- `src/App.tsx`
+  - App composition: theme provider + cursor manager + unified home flow.
+- `src/components/home/Home.tsx`
+  - Main page container for landing and homepage sections.
+- `src/components/home/Landing.tsx`
+  - Real landing section at the top of the portfolio.
+- `src/components/home/ScrollTransition.tsx`
+  - Short melt/distortion handoff while scrolling out of landing.
+- `src/components/home/HomePage.tsx`
+  - Main homepage composition (intro, projects, context, contact).
+- `src/components/home/projects.ts`
+  - Typed static project data source.
+- `src/components/themes/`
+  - Theme configs, registry, transition layers, and theme manager.
+- `src/components/themes/unlockLogic.tsx`
+  - Dormant unlock architecture (state/actions) kept for future reuse.
+- `src/components/cursor/`
+  - Custom cursor modes and cursor rendering.
 
-`RealPortfolio.tsx` currently contains placeholder project cards and links; swap them for your real work.
+## Content Editing
 
-## Deploy
+- Landing copy and CTA labels:
+  - `src/components/home/LandingContent.tsx`
+- Homepage intro/context/contact blocks:
+  - `src/components/home/HomeIntro.tsx`
+  - `src/components/home/ContextBlock.tsx`
+  - `src/components/home/ContactSection.tsx`
+- Projects:
+  - `src/components/home/projects.ts`
 
-This is a static Vite build.
+## Themes
+
+Themes are full-page visual systems now, not landing-only skins.
+
+- Theme switching is available from the landing CTA.
+- Theme transitions remain active in the background across landing and homepage.
+- Theme tokens drive section surfaces, borders, type, and color usage throughout the full page.
+
+## Dormant Unlock Logic
+
+The previous visible unlock/overclock presentation was removed.
+
+The unlock mechanism is still preserved internally in
+`src/components/themes/unlockLogic.tsx` as a dormant feature:
+
+- `isUnlocked`
+- `unlock()`
+- `lock()`
+- `toggle()`
+
+It is intentionally not exposed through current UI/theme options.
+
+## Build and Deploy
+
+Create a production build:
 
 ```bash
 npm run build
 ```
 
-Output is in `dist/` (serve it with any static host, or use `npm run preview` locally).
+Build output is in `dist/`.

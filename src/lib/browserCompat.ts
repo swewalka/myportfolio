@@ -1,4 +1,4 @@
-export type CompatFeature = 'heroRevealHtmlSvgFilterReference';
+export type CompatFeature = 'landingSvgFilterReference';
 
 interface CompatFeatureSpec {
   check: () => boolean;
@@ -32,7 +32,7 @@ const supportsSvgFilterPrimitives = (): boolean => {
 };
 
 const compatFeatureSpecs: Record<CompatFeature, CompatFeatureSpec> = {
-  heroRevealHtmlSvgFilterReference: {
+  landingSvgFilterReference: {
     check: () => supportsCssFilters() && supportsSvgFilterPrimitives(),
     shouldWorkaround: (isSupported) => !isSupported || isFirefox(),
   },

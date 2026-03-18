@@ -4,7 +4,7 @@ import { cosmicThemeModule } from '../cosmic/module';
 import { signatureThemeModule } from '../signature/module';
 import type { ThemeConfig, ThemeId, ThemeModule } from './types';
 
-export const STARTER_THEME_ID: ThemeId = 'signature';
+export const DEFAULT_THEME_ID: ThemeId = 'signature';
 
 export const themeModules: ThemeModule[] = [
   signatureThemeModule,

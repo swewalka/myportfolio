@@ -1,4 +1,4 @@
-import type { ComponentType, CSSProperties } from 'react';
+import type { ComponentType } from 'react';
 
 export type ThemeId = 'signature' | 'blueprint' | 'brutal' | 'cosmic';
 
@@ -39,63 +39,16 @@ export interface ThemeConfig {
   id: ThemeId;
   label: string;
   content: {
-    heroTagline: string;
+    landingTagline: string;
   };
   tokens: ThemeTokens;
-}
-
-export interface ThemeUnlockEffectProps {
-  isUnlocked: boolean;
-  isWiggling: boolean;
 }
 
 export interface ThemeTransitionLayerProps {
   isPerformanceReduced?: boolean;
 }
 
-export interface ThemeLandingVariant {
-  exploreButtonClassName: string;
-  exploreButtonStyle: CSSProperties;
-  shimmerClassName: string;
-  shadowPulse: string[];
-  scrollIndicatorStyle: CSSProperties;
-  scrollIndicatorContainerClassName?: string;
-  scrollIndicatorCopyClassName?: string;
-  scrollIndicatorArrowClassName?: string;
-  showScrollRescueLights?: boolean;
-  scrollRescueLightClassName?: string;
-  scrollRescueLightCoreClassName?: string;
-}
-
-export interface ThemeHeroVariant {
-  badgeText: string;
-  badgeContainerClassName: string;
-  badgeContainerStyle: CSSProperties;
-  badgeTextClassName: string;
-  badgeTextStyle: CSSProperties;
-  titleClassName: string;
-  titleStyle?: CSSProperties;
-  taglineText: string;
-  taglineClassName: string;
-  taglineStyle?: CSSProperties;
-  descriptionText: string;
-  descriptionClassName: string;
-  descriptionStyle: CSSProperties;
-  primaryActionRowClassName: string;
-  actionButtonBaseClassName: string;
-  actionButtonBaseStyle: CSSProperties;
-  themeActionText: string;
-  themeActionClassName: string;
-  themeActionStyle?: CSSProperties;
-  contactActionText: string;
-  contactActionClassName: string;
-  contactActionStyle?: CSSProperties;
-}
-
 export interface ThemeModule {
   config: ThemeConfig;
   TransitionLayer: ComponentType<ThemeTransitionLayerProps>;
-  UnlockEffectLayer: ComponentType<ThemeUnlockEffectProps>;
-  getLandingVariant: (isUnlocked: boolean) => ThemeLandingVariant;
-  getHeroVariant: (isUnlocked: boolean) => ThemeHeroVariant;
 }

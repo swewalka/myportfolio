@@ -1,5 +1,5 @@
 export {
-  STARTER_THEME_ID,
+  DEFAULT_THEME_ID,
   getThemeConfig,
   getThemeModule,
   themeModules,

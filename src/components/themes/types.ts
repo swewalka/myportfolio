@@ -1,8 +1,1 @@
-export type {
-  ThemeConfig,
-  ThemeId,
-  ThemeLandingVariant,
-  ThemeModule,
-  ThemeTokens,
-  ThemeUnlockEffectProps,
-} from './core/types';
+export type { ThemeConfig, ThemeId, ThemeModule, ThemeTokens } from './core/types';
